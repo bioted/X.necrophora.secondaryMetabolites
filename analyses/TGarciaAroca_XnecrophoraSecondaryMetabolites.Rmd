@@ -21,3 +21,9 @@ library(tidyverse)
 library(reshape)
 ```
 
+
+Set the working directory to where the raw data files are found. In this case, we assume you have donwloaded this repository to your "Documents" folder.
+
+```{r}
+setwd("/Users/tedggarcia/Dropbox/Work/Xylaria/Xylaria.Mycotoxins.2020/Manuscript/Submission/GitHubRepository/X.necrophora.secondaryMetabolites/")
+```
