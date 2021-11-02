@@ -25,5 +25,62 @@ library(reshape)
 Set the working directory to where the raw data files are found. In this case, we assume you have donwloaded this repository to your "Documents" folder.
 
 ```{r}
-setwd("/Users/tedggarcia/Dropbox/Work/Xylaria/Xylaria.Mycotoxins.2020/Manuscript/Submission/GitHubRepository/X.necrophora.secondaryMetabolites/")
+setwd("~/X.necrophora.secondaryMetabolites/")
 ```
+
+Loading digital chl datasets
+ES2 = First experiment at 14 Days of exporuse (DOE)
+ES4 = Repetetion at 14 DOE
+
+ES5 = First experiment at 7 DOE
+ES8 = Repetition at 7 DOE
+
+ES13A = Experiment testing potentially resistant cultivars (7DOE)
+ES13B = Repetition of ES13A
+
+ES14A = Experiment testing effects among plant species (7DOE)
+ES14B = Repetition of ES14A
+
+```{r}
+ES2.digital.raw <- read.csv("./raw_data/Xylaria_ES2_chl.merged.dataset.complete.V2.csv", header = T)
+
+
+
+ES5.digital.WBonly <- read.csv("./raw_data/Xylaria_ES5_samples.clean.chl.content.rawdata.complete.V3.mod.csv", header = T)
+
+
+```
+
+Run Shapiro-Wilk Tests to check for normality
+
+```{r}
+shapiro.test(ES2.digital.raw$chl)
+shapiro.test(ES5.digital.WBonly$chl)
+
+
+```
+
+Check the distribution of the data and assess if normalization is needed.
+
+```{r}
+plggdensity(ES2.digital.raw$chl, main = "ES2 raw Density of Chlorophyll Content (digital)", xlab = "Datapoints")
+ggdensity(ES5.digital.WBonly$chl, main = "ES5 WB only Density of Chlorophyll Content (digital)", xlab = "Datapoints")
+
+ggqqplot(ES2.digital.raw$chl)
+ggqqplot(ES5.digital.WBonly$chl)
+
+
+plotNormalHistogram(ES2.digital.raw$chl, main = "ES2 Density of Chlorophyll Content (Digital)", xlab = "Datapoints")
+plotNormalHistogram(ES5.digital.WBonly$chl, main = "ES5 Density of Chlorophyll Content (Digital)", xlab = "Datapoints")
+
+
+```
+
+Use the Tukey's tranformation method to normalize the distribution and append to datasets
+
+```{r}
+ES2_digital_raw_T_tuk = transformTukey(ES2.digital.raw$chl, plotit=FALSE)
+ES5_digital_WBonly_T_tuk = transformTukey(ES5.digital.WBonly$chl, plotit=FALSE)
+```
+
+
