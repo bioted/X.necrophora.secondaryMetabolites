@@ -5,8 +5,8 @@ saveAs("Jpeg", output + filename);
 close();
 }
 
-input = "/Users/dml/Dropbox/userDirectories/teddy/Xylaria/Xylaria_mycotoxins/Results/ES5/Analysis/ES5_samples.clean/";
-output = "/Users/dml/Dropbox/userDirectories/teddy/Xylaria/Xylaria_mycotoxins/Results/ES5/Analysis/ES_samples.clean.chl/";
+input = "/Users/tedggarcia/Documents/X.necrophora.secondaryMetabolites/scripts/input/";
+output = "/Users/tedggarcia/Documents/X.necrophora.secondaryMetabolites/scripts/output/";
 
 setBatchMode(true); 
 list = getFileList(input);
