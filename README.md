@@ -54,5 +54,21 @@ When downloading this repository, open the "analyses" folder and load the R mark
 ## References
 
 
+Liang Y, Urano D, Liao KL, Hedrick TL, Gao Y, Jones AM. 2017. A nondestructive method to estimate the chlorophyll content of Arabidopsis seedlings. Plant Methods. 13:1–10
+
+Mendiburu F de. 2020. agricolae: statistical procedures for agricultural research.
+
+RStudio Team. 2015. RStudio: Integrated development environment for R. RStudio, Inc, Boston, MA. http://www.rstudio.com.
+
+Schneider CA, Rasband WS, Eliceiri KW. 2012. NIH Image to ImageJ: 25 years of image analysis. Nature Methods. 9:671–675.
+
+Tukey JW. 1977. Exploratory Data Analysis. Biometrics. 33:768.
+
+Wickham H, François R, Henry L, Müller K. 2018. dplyr: A grammar of data manipulation.
+
+
+
+
+
 
 
