@@ -1,0 +1,188 @@
+---
+title: Statistical analyses and plotting for *Xylaria necrophora* secondary metabolites
+  experiments
+author: "Teddy Garcia-Aroca"
+date: "October 29, 2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Install and load required packages
+
+```{r}
+library(agricolae)
+library(dplyr)
+library(plyr)
+require(ggplot2)
+library(readr)
+library("ggpubr")
+library("car")
+library(rcompanion)
+#install.packages("tidyverse")
+library(tidyverse)
+library(reshape)
+```
+
+
+# Set the working directory to where the directory where the output files will be saved. 
+
+In this case, we assume you have cloned/donwloaded this repository to your "Documents" folder.
+
+Change directory on mac/linux:
+
+setwd("/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output")
+
+Change directory on Windows (Windows 10 in this example):
+
+setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output")
+
+```{r}
+setwd("/Users/tedggarcia/Documents/X.necrophora.secondaryMetabolites/output/")
+```
+
+## Loading digital chl datasets (only one repetition of each experiment for illustration purposes)
+
+ES2 = First experiment for 14 Days of exporuse (DOE)
+#ES4 = Repetetion for 14 DOE
+
+ES5 = First experiment for 7 DOE
+#ES8 = Repetition for 7 DOE
+
+#ES13A = Experiment testing potentially resistant cultivars (7DOE)
+ES13B = Repetition of ES13A
+
+ES14A = Experiment testing effects among plant species (7DOE)
+#ES14B = Repetition of ES14A
+
+```{r}
+ES2 <- read.csv("../raw_data/ES2.ChlorophyllContent.14DOE.Exp1.csv", header = T)
+ES5 <- read.csv("../raw_data/ES5.ChlorophyllContent.7DOE.Exp1.csv", header = T)
+ES13B <- read.csv("../raw_data/ES13B.ChlorophyllContent.7DOE.Exp2.Cultivars.csv", header = T)
+ES14A <- read.csv("../raw_data/ES14A.ChlorophyllContent.7DOE.Exp1.PlantSpecies.csv", header = T)
+```
+
+## Run Shapiro-Wilk Tests to check for normality
+
+```{r}
+shapiro.test(ES2$chl)
+shapiro.test(ES5$chl)
+shapiro.test(ES13B$chl)
+shapiro.test(ES14A$chl)
+```
+## Check the distribution of the data and assess if normalization is needed.
+
+```{r}
+ggdensity(ES2$chl, main = "Density of Chlorophyll Content (digital) for ES2", xlab = "Datapoints")
+ggdensity(ES5$chl, main = "Density of Chlorophyll Content (digital) for ES5", xlab = "Datapoints")
+
+ggdensity(ES13B$chl, main = "Density of Chlorophyll Content (digital) for ES13B", xlab = "Datapoints")
+
+ggdensity(ES14A$chl, main = "Density of Chlorophyll Content (digital) for ES14A", xlab = "Datapoints")
+
+ggqqplot(ES2$chl)
+ggqqplot(ES5$chl)
+ggqqplot(ES13B$chl)
+ggqqplot(ES14A$chl)
+
+plotNormalHistogram(ES2$chl, main = "Density of Chlorophyll Content (Digital) for ES2", xlab = "Datapoints")
+plotNormalHistogram(ES5$chl, main = "Density of Chlorophyll Content (Digital) for ES5", xlab = "Datapoints")
+plotNormalHistogram(ES13B$chl, main = "Density of Chlorophyll Content (Digital) for E13B", xlab = "Datapoints")
+plotNormalHistogram(ES14A$chl, main = "Density of Chlorophyll Content (Digital) for E14A", xlab = "Datapoints")
+
+```
+## Use the Tukey's tranformation method to normalize the distribution and append to datasets
+
+```{r}
+ES2_chl.tuk = transformTukey(ES2$chl, plotit=FALSE)
+ES5_chl.tuk = transformTukey(ES5$chl, plotit=FALSE)
+ES13B_chl.tuk = transformTukey(ES13B$chl, plotit=FALSE)
+ES14A_chl.tuk = transformTukey(ES14A$chl, plotit=FALSE)
+```
+## Append the transformed values to original datasets
+
+```{r}
+ES2.mod <- cbind(ES2, ES2_chl.tuk)
+ES5.mod <- cbind(ES5, ES5_chl.tuk)
+ES13B.mod <- cbind(ES13B, ES13B_chl.tuk)
+ES14A.mod <- cbind(ES14A, ES14A_chl.tuk)
+```
+
+# Statistical analyses 
+
+Run ANOVA and Tukey's honest significance differences for raw chlorophyll content.
+
+## ES2 dataset (untransformed data)
+As desribed above, this experiment was ran using cell-free culture filtrates (CFCFs) from three local strains of *Xylaria necrophora* (DMCC2126, DMCC2127, and DMCC2165) and one *Colletotrichum siamense* (DMCC2966) for 14 days (ES2)
+
+```{r}
+###############ES2 analysis################################
+ES2.chl.anova <- lm (ES2$chl ~ ES2$Treatment + ES2$Dilution + ES2$Condition + ES2$isoRep + ES2$techRep + ES2$sampleNumber)
+ES2.chl.anova
+summary(ES2.chl.anova)
+anova(ES2.chl.anova)
+
+#Tukey's HSD for Variable chl (tukey trans) by Treament
+ES2.chl.treatment.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Treatment', group = T)
+ES2.chl.treatment.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by Dilution
+ES2.chl.dilution.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Dilution', group = T)
+ES2.chl.dilution.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by isoRep
+ES2.chl.isoRep.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$isoRep', group = T)
+ES2.chl.isoRep.HSD.test
+
+
+#Complete ANOVA for ES2 by treatment by dilution
+ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2 - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.comp.HSD.group
+
+#Complete ANOVA for ES2 by treatment by condition, by dilution
+ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Condition", "ES2$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2 - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.comp.HSD.group
+```
+Same analysis using the transformed dataset
+
+```{r}
+###############ES2 analysis################################
+ES2.mod.chl.anova <- lm (ES2.mod$ES2_chl.tuk ~ ES2.mod$Treatment + ES2.mod$Dilution + ES2.mod$Condition + ES2.mod$isoRep + ES2.mod$techRep + ES2.mod$sampleNumber)
+ES2.mod.chl.anova
+summary(ES2.mod.chl.anova)
+anova(ES2.mod.chl.anova)
+
+#Tukey's HSD for Variable chl (tukey trans) by Treament
+ES2.mod.chl.treatment.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Treatment', group = T)
+ES2.mod.chl.treatment.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by Dilution
+ES2.mod.chl.dilution.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Dilution', group = T)
+ES2.mod.chl.dilution.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by isoRep
+ES2.mod.chl.isoRep.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$isoRep', group = T)
+ES2.mod.chl.isoRep.HSD.test
+
+
+#Complete ANOVA for ES2.mod by treatment by dilution
+ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.anova, c("ES2.mod$Treatment", "ES2.mod$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2.mod - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.mod.comp.HSD.group
+
+#Complete ANOVA for ES2.mod by treatment by condition, by dilution
+ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.anova, c("ES2.mod$Treatment", "ES2.mod$Condition", "ES2.mod$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2.mod - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.mod.comp.HSD.group
+```
+
+
+
+
+

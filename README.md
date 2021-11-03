@@ -36,7 +36,7 @@ In this folder, we have provided all the datasets used in our analyses.
 
 ### analyses
 
-In this folder we provide the R mardown with all statistical analyses using the data provided.
+In this folder we provide the R markdown with all statistical analyses using the data provided.
 
 ### output
 
@@ -44,7 +44,11 @@ Here we provide output from R markdown, plots, and composite figures found in th
 
 ### scripts
 
-Here we provide an example of the JAVA scripts used on ImageJ to measure chlorophyll content recursively on leaf discs extracted from photos taken on the last day of our experiments.
+Here we provide an example of the JAVA scripts and macros used on ImageJ to measure chlorophyll content recursively on leaf discs extracted from photos taken on the last day of our experiments.
+1. input = folder containing leaf discs extracted and processed as detailed above.
+2. macros = contains one example macro used to measure chlorophyll content recursively for all photos in the input folder.
+3. output = contains all the processed leaf discs present in input folder. Red values represent the total chlorophyll content measured in nanograms per square millimeters.
+4. plugins = contains all the plugins described in Liang et al. (2017). The plugin used in the current example was modified to adjust white-background and renamed as "Chlorophyll_Imager_Teddy_ES5.java". This pluging has to be loaded on ImageJ and the associated ".class" file has to be replaced for the changes to take effect.
 
 
 ## Instructions
