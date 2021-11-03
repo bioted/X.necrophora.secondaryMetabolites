@@ -36,7 +36,7 @@ In this folder, we have provided all the datasets used in our analyses.
 
 ### analyses
 
-In this folder we provide the Rmardown with all statistical analyses using the data provided.
+In this folder we provide the R mardown with all statistical analyses using the data provided.
 
 ### output
 
