@@ -28,59 +28,72 @@ Set the working directory to where the raw data files are found. In this case, w
 setwd("~/X.necrophora.secondaryMetabolites/")
 ```
 
-Loading digital chl datasets
-ES2 = First experiment at 14 Days of exporuse (DOE)
-ES4 = Repetetion at 14 DOE
+Loading digital chl datasets (only one repetition of each experiment for illustration purposes)
+ES2 = First experiment for 14 Days of exporuse (DOE)
+#ES4 = Repetetion for 14 DOE
 
-ES5 = First experiment at 7 DOE
-ES8 = Repetition at 7 DOE
+ES5 = First experiment for 7 DOE
+#ES8 = Repetition for 7 DOE
 
-ES13A = Experiment testing potentially resistant cultivars (7DOE)
+#ES13A = Experiment testing potentially resistant cultivars (7DOE)
 ES13B = Repetition of ES13A
 
 ES14A = Experiment testing effects among plant species (7DOE)
-ES14B = Repetition of ES14A
+#ES14B = Repetition of ES14A
 
 ```{r}
-ES2.digital.raw <- read.csv("./raw_data/Xylaria_ES2_chl.merged.dataset.complete.V2.csv", header = T)
-
-
-
-ES5.digital.WBonly <- read.csv("./raw_data/Xylaria_ES5_samples.clean.chl.content.rawdata.complete.V3.mod.csv", header = T)
-
-
+ES2 <- read.csv("../raw_data/ES2.ChlorophyllContent.14DOE.Exp1.csv", header = T)
+ES5 <- read.csv("../raw_data/ES5.ChlorophyllContent.7DOE.Exp1.csv", header = T)
+ES13B <- read.csv("../raw_data/ES13B.ChlorophyllContent.7DOE.Exp2.Cultivars.csv", header = T)
+ES14A <- read.csv("../raw_data/ES14A.ChlorophyllContent.7DOE.Exp1.PlantSpecies.csv", header = T)
 ```
 
 Run Shapiro-Wilk Tests to check for normality
 
 ```{r}
-shapiro.test(ES2.digital.raw$chl)
-shapiro.test(ES5.digital.WBonly$chl)
-
-
+shapiro.test(ES2$chl)
+shapiro.test(ES5$chl)
+shapiro.test(ES13B$chl)
+shapiro.test(ES14A$chl)
 ```
 
 Check the distribution of the data and assess if normalization is needed.
 
 ```{r}
-plggdensity(ES2.digital.raw$chl, main = "ES2 raw Density of Chlorophyll Content (digital)", xlab = "Datapoints")
-ggdensity(ES5.digital.WBonly$chl, main = "ES5 WB only Density of Chlorophyll Content (digital)", xlab = "Datapoints")
+ggdensity(ES2$chl, main = "Density of Chlorophyll Content (digital) for ES2", xlab = "Datapoints")
+ggdensity(ES5$chl, main = "Density of Chlorophyll Content (digital) for ES5", xlab = "Datapoints")
 
-ggqqplot(ES2.digital.raw$chl)
-ggqqplot(ES5.digital.WBonly$chl)
+ggdensity(ES13B$chl, main = "Density of Chlorophyll Content (digital) for ES13B", xlab = "Datapoints")
 
+ggdensity(ES14A$chl, main = "Density of Chlorophyll Content (digital) for ES14A", xlab = "Datapoints")
 
-plotNormalHistogram(ES2.digital.raw$chl, main = "ES2 Density of Chlorophyll Content (Digital)", xlab = "Datapoints")
-plotNormalHistogram(ES5.digital.WBonly$chl, main = "ES5 Density of Chlorophyll Content (Digital)", xlab = "Datapoints")
+ggqqplot(ES2$chl)
+ggqqplot(ES5$chl)
+ggqqplot(ES13B$chl)
+ggqqplot(ES14A$chl)
 
+plotNormalHistogram(ES2$chl, main = "Density of Chlorophyll Content (Digital) for ES2", xlab = "Datapoints")
+plotNormalHistogram(ES5$chl, main = "Density of Chlorophyll Content (Digital) for ES5", xlab = "Datapoints")
+plotNormalHistogram(ES13B$chl, main = "Density of Chlorophyll Content (Digital) for E13B", xlab = "Datapoints")
+plotNormalHistogram(ES14A$chl, main = "Density of Chlorophyll Content (Digital) for E14A", xlab = "Datapoints")
 
 ```
 
 Use the Tukey's tranformation method to normalize the distribution and append to datasets
 
 ```{r}
-ES2_digital_raw_T_tuk = transformTukey(ES2.digital.raw$chl, plotit=FALSE)
-ES5_digital_WBonly_T_tuk = transformTukey(ES5.digital.WBonly$chl, plotit=FALSE)
+ES2_chl.tuk = transformTukey(ES2$chl, plotit=FALSE)
+ES5_chl.tuk = transformTukey(ES5$chl, plotit=FALSE)
+ES13B_chl.tuk = transformTukey(ES13B$chl, plotit=FALSE)
+ES14A_chl.tuk = transformTukey(ES14A$chl, plotit=FALSE)
+```
+Append the transformed values to original datasets
+
+```{r}
+ES2.mod <- cbind(ES2, ES2_chl.tuk)
+ES5.mod <- cbind(ES5, ES5_chl.tuk)
+ES13B.mod <- cbind(ES13B, ES13B_chl.tuk)
+ES14A.mod <- cbind(ES14A, ES14A_chl.tuk)
 ```
 
 
