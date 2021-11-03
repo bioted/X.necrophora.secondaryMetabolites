@@ -32,7 +32,7 @@ Total chlorophyll content and root length were used as response variables among 
 
 ### raw_data
 
-In this folder, we have provided all the datsets used in our analyses.
+In this folder, we have provided all the datasets used in our analyses.
 
 ### analyses
 
