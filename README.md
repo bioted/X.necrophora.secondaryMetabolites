@@ -49,7 +49,7 @@ Here we provide an example of the JAVA script used to measure chlorophyll conten
 
 ## Instructions
 
-When downloading this repository, open the "analyses" folder and load the R markdown to your Rstudio (or directly onto R) and run the code to inspect the results presented in this manuscript. Alternatively, you can read the results provided in the html and PDF versions in the "output" folder.
+When downloading this repository, open the "analyses" folder and load the R markdown to your Rstudio (or directly into R) and run the code to inspect the results presented in this manuscript. Alternatively, you can read the results provided in the html and PDF versions in the "output" folder.
 
 ## References
 
