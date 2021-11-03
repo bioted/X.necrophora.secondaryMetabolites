@@ -44,7 +44,7 @@ Here we provide output from R markdown, plots, and composite figures found in th
 
 ### scripts
 
-Here we provide an example of the JAVA script used to measure chlorophyll content recursively on leaf discs extracted from photos taken on the last day of our experiments.
+Here we provide an example of the JAVA scripts used on ImageJ to measure chlorophyll content recursively on leaf discs extracted from photos taken on the last day of our experiments.
 
 
 ## Instructions
