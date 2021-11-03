@@ -20,7 +20,7 @@ Authors: Teddy Garcia-Aroca<sup>a,+</sup>, Trey Price<sup>b</sup>, Jose Solorzan
 
 Final photos were taken at either 7 or 14 days of exposure (DOE) with a Nikon D5300 (Nikon USA, Melville, New York) camera fixed to a photo stand surrounded by two Neewer NL660 LED lamps (Shenzhen Neewer, Shenzhen, China), and stored in RAW format (“.NEF” extension), under these parameters: aperture=f/11, ISO (sensitivity of the signal gain of the camera's sensor) = 640. A standard ruler and an X-rite color checker chart (X-rite, Grand Rapids, MI) were included in each photo for white background calibration purposes. The white balance was standardized on Adobe Lightroom Classic (ALC) (Adobe, San Jose, California) as suggested by Liang et al. (2017) prior subsampling in ImageJ 1.8.0 software (Schneider et al. 2012). The photos in RAW format were loaded on ALC, and the white background was standardized using a pre-made camera profile obtained with DNG profile editor (Adobe, San Jose, California) and the X-rite color checker chart, as described by Liang et al. (2017). Photos with standardized white background were saved as JPEG format for further processing.
 
-Three leaf discs of 6 mm in diameter were subsampled from each photo by calibrating the number of pixels per millimeter using a ruler present in all raw photos. Subsamples were taken along the main vein of the center leaflet, at the main trifoliate, or the trifoliate from the highest node. Subsamples were taken at the base (sample 1), middle (sample 2), and edge (sample 3) of the leaf and saved for further processing. These 6-mm leaf discs were extracted digitally from leaves by copying and pasting a "Region Of Interest" (ROI) of 6-mm (calibrated with the ruler) into a new RGB, 512 × 512-pixel image with a black background (only one slice) and saved to a new folder for further processing. The black background of sampled leaf discs was removed using Adobe Photoshop CS6 (Adobe, San Jose, California) and saved as a new “clean” image. Total chlorophyll content was measured from “clean” images in nanograms per square millimeter (ng/sq mm) using ImageJ J 1.8.0 software (Schneider et al. 2012) and the JAVA scripts provided by Liang et al. (2017).
+Three leaf discs of 6 mm in diameter were subsampled from each photo by calibrating the number of pixels per millimeter using a ruler present in all raw photos. Subsamples were taken along the main vein of the center leaflet, at the main trifoliate, or the trifoliate from the highest node. Subsamples were taken at the base (sample 1), middle (sample 2), and edge (sample 3) of the leaf and saved for further processing. These 6-mm leaf discs were extracted digitally from leaves by copying and pasting a "Region Of Interest" (ROI) of 6-mm (calibrated with the ruler) into a new RGB, 512 × 512-pixel image with a black background (only one slice) and saved to a new folder for further processing. The black background of sampled leaf discs was removed using Adobe Photoshop CS6 (Adobe, San Jose, California) and saved as a new “clean” image. Total chlorophyll content was measured from “clean” images in nanograms per square millimeter (ng/sq mm) using ImageJ 1.8.0 software (Schneider et al. 2012) and the JAVA scripts provided by Liang et al. (2017).
 
 
 ## Statistical tests
@@ -30,16 +30,29 @@ Total chlorophyll content and root length were used as response variables among 
 
 ## Description of the folders provided in this repository
 
-### Raw data
+### raw_data
 
 In this folder, we have provided all the datsets used in our analyses.
 
-### Analyses
+### analyses
 
 In this folder we provide the Rmardown with all statistical analyses using the data provided.
 
-### Output
+### output
 
-Here we provide plots and composite figures found in the manuscript.
+Here we provide output from R markdown, plots, and composite figures found in the manuscript.
+
+### scripts
+
+Here we provide an example of the JAVA script used to measure chlorophyll content recursively on leaf discs extracted from photos taken on the last day of our experiments.
+
+
+## Instructions
+
+When downloading this repository, open the "analyses" folder and load the R markdown to your Rstudio (or directly onto R) and run the code to inspect the results presented in this manuscript. Alternatively, you can read the results provided in the html and PDF versions in the "output" folder.
+
+## References
+
+
 
 

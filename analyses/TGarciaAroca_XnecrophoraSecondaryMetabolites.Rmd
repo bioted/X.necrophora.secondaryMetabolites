@@ -1,8 +1,11 @@
 ---
-title: Statistical analyses and plotting for Xylaria necrophora secondary metabolites experiments
-author: Teddy Garcia-Aroca
-date: October 29, 2021
-output: html_document
+title: Statistical analyses and plotting for Xylaria necrophora secondary metabolites
+  experiments
+author: "Teddy Garcia-Aroca"
+date: "October 29, 2021"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 Install and load required packages
@@ -22,10 +25,17 @@ library(reshape)
 ```
 
 
-Set the working directory to where the raw data files are found. In this case, we assume you have donwloaded this repository to your "Documents" folder.
+Set the working directory to where the directory where the output files will be saved. In this case, we assume you have cloned/donwloaded this repository to your "Documents" folder.
+
+Change directory on mac/linux:
+setwd("/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output")
+
+Change directory on Windows (Windows 10 in this example)
+setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output")
+
 
 ```{r}
-setwd("~/X.necrophora.secondaryMetabolites/")
+setwd("/Users/tedggarcia/Documents/X.necrophora.secondaryMetabolites/output/")
 ```
 
 Loading digital chl datasets (only one repetition of each experiment for illustration purposes)
@@ -95,5 +105,77 @@ ES5.mod <- cbind(ES5, ES5_chl.tuk)
 ES13B.mod <- cbind(ES13B, ES13B_chl.tuk)
 ES14A.mod <- cbind(ES14A, ES14A_chl.tuk)
 ```
+
+Statistical analyses with raw chlorophyll content (untransformed data) for the experiment ran using cell free culture filtrates from three local strains of <i>Xylaria necrophora</i> (DMCC2126, DMCC2127, and DMCC2165) and one <i>Colletotrichum siamense</i> (DMCC2966) for 14 days (ES2)
+
+```{r}
+###############ES2 analysis################################
+ES2.chl.anova <- lm (ES2$chl ~ ES2$Treatment + ES2$Dilution + ES2$Condition + ES2$isoRep + ES2$techRep + ES2$sampleNumber)
+ES2.chl.anova
+summary(ES2.chl.anova)
+anova(ES2.chl.anova)
+
+#Tukey's HSD for Variable chl (tukey trans) by Treament
+ES2.chl.treatment.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Treatment', group = T)
+ES2.chl.treatment.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by Dilution
+ES2.chl.dilution.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Dilution', group = T)
+ES2.chl.dilution.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by isoRep
+ES2.chl.isoRep.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$isoRep', group = T)
+ES2.chl.isoRep.HSD.test
+
+
+#Complete ANOVA for ES2 by treatment by dilution
+ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2 - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.comp.HSD.group
+
+#Complete ANOVA for ES2 by treatment by condition, by dilution
+ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Condition", "ES2$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2 - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.comp.HSD.group
+```
+
+Same analysis using the transformed dataset
+```{r}
+###############ES2 analysis################################
+ES2.mod.chl.anova <- lm (ES2.mod$ES2_chl.tuk ~ ES2.mod$Treatment + ES2.mod$Dilution + ES2.mod$Condition + ES2.mod$isoRep + ES2.mod$techRep + ES2.mod$sampleNumber)
+ES2.mod.chl.anova
+summary(ES2.mod.chl.anova)
+anova(ES2.mod.chl.anova)
+
+#Tukey's HSD for Variable chl (tukey trans) by Treament
+ES2.mod.chl.treatment.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Treatment', group = T)
+ES2.mod.chl.treatment.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by Dilution
+ES2.mod.chl.dilution.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Dilution', group = T)
+ES2.mod.chl.dilution.HSD.test
+
+#Tukey's HSD for Variable chl (tukey trans) by isoRep
+ES2.mod.chl.isoRep.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$isoRep', group = T)
+ES2.mod.chl.isoRep.HSD.test
+
+
+#Complete ANOVA for ES2.mod by treatment by dilution
+ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.anova, c("ES2.mod$Treatment", "ES2.mod$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2.mod - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.mod.comp.HSD.group
+
+#Complete ANOVA for ES2.mod by treatment by condition, by dilution
+ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.anova, c("ES2.mod$Treatment", "ES2.mod$Condition", "ES2.mod$Dilution"), group=TRUE,console=TRUE,
+                                               main="ES2.mod - Xylaria Chl Contnent (Tukey's Ladder Transformed Data) by treatment  by dilution at 14 DAI Grouped")
+
+ES2.mod.comp.HSD.group
+```
+
+
+
 
 
