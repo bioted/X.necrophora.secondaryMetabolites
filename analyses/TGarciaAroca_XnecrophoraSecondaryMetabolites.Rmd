@@ -1,5 +1,5 @@
 ---
-title: Statistical analyses and plotting for Xylaria necrophora secondary metabolites
+title: Statistical analyses and plotting for *Xylaria necrophora* secondary metabolites
   experiments
 author: "Teddy Garcia-Aroca"
 date: "October 29, 2021"
@@ -25,20 +25,24 @@ library(reshape)
 ```
 
 
-Set the working directory to where the directory where the output files will be saved. In this case, we assume you have cloned/donwloaded this repository to your "Documents" folder.
+# Set the working directory to where the directory where the output files will be saved. 
+
+In this case, we assume you have cloned/donwloaded this repository to your "Documents" folder.
 
 Change directory on mac/linux:
+
 setwd("/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output")
 
-Change directory on Windows (Windows 10 in this example)
-setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output")
+Change directory on Windows (Windows 10 in this example):
 
+setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output")
 
 ```{r}
 setwd("/Users/tedggarcia/Documents/X.necrophora.secondaryMetabolites/output/")
 ```
 
-Loading digital chl datasets (only one repetition of each experiment for illustration purposes)
+## Loading digital chl datasets (only one repetition of each experiment for illustration purposes)
+
 ES2 = First experiment for 14 Days of exporuse (DOE)
 #ES4 = Repetetion for 14 DOE
 
@@ -58,7 +62,7 @@ ES13B <- read.csv("../raw_data/ES13B.ChlorophyllContent.7DOE.Exp2.Cultivars.csv"
 ES14A <- read.csv("../raw_data/ES14A.ChlorophyllContent.7DOE.Exp1.PlantSpecies.csv", header = T)
 ```
 
-Run Shapiro-Wilk Tests to check for normality
+## Run Shapiro-Wilk Tests to check for normality
 
 ```{r}
 shapiro.test(ES2$chl)
@@ -66,8 +70,7 @@ shapiro.test(ES5$chl)
 shapiro.test(ES13B$chl)
 shapiro.test(ES14A$chl)
 ```
-
-Check the distribution of the data and assess if normalization is needed.
+## Check the distribution of the data and assess if normalization is needed.
 
 ```{r}
 ggdensity(ES2$chl, main = "Density of Chlorophyll Content (digital) for ES2", xlab = "Datapoints")
@@ -88,8 +91,7 @@ plotNormalHistogram(ES13B$chl, main = "Density of Chlorophyll Content (Digital) 
 plotNormalHistogram(ES14A$chl, main = "Density of Chlorophyll Content (Digital) for E14A", xlab = "Datapoints")
 
 ```
-
-Use the Tukey's tranformation method to normalize the distribution and append to datasets
+## Use the Tukey's tranformation method to normalize the distribution and append to datasets
 
 ```{r}
 ES2_chl.tuk = transformTukey(ES2$chl, plotit=FALSE)
@@ -97,7 +99,7 @@ ES5_chl.tuk = transformTukey(ES5$chl, plotit=FALSE)
 ES13B_chl.tuk = transformTukey(ES13B$chl, plotit=FALSE)
 ES14A_chl.tuk = transformTukey(ES14A$chl, plotit=FALSE)
 ```
-Append the transformed values to original datasets
+## Append the transformed values to original datasets
 
 ```{r}
 ES2.mod <- cbind(ES2, ES2_chl.tuk)
@@ -106,7 +108,12 @@ ES13B.mod <- cbind(ES13B, ES13B_chl.tuk)
 ES14A.mod <- cbind(ES14A, ES14A_chl.tuk)
 ```
 
-Statistical analyses with raw chlorophyll content (untransformed data) for the experiment ran using cell free culture filtrates from three local strains of <i>Xylaria necrophora</i> (DMCC2126, DMCC2127, and DMCC2165) and one <i>Colletotrichum siamense</i> (DMCC2966) for 14 days (ES2)
+# Statistical analyses 
+
+Run ANOVA and Tukey's honest significance differences for raw chlorophyll content.
+
+## ES2 dataset (untransformed data)
+As desribed above, this experiment was ran using cell-free culture filtrates (CFCFs) from three local strains of *Xylaria necrophora* (DMCC2126, DMCC2127, and DMCC2165) and one *Colletotrichum siamense* (DMCC2966) for 14 days (ES2)
 
 ```{r}
 ###############ES2 analysis################################
@@ -140,8 +147,8 @@ ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Condition"
 
 ES2.comp.HSD.group
 ```
-
 Same analysis using the transformed dataset
+
 ```{r}
 ###############ES2 analysis################################
 ES2.mod.chl.anova <- lm (ES2.mod$ES2_chl.tuk ~ ES2.mod$Treatment + ES2.mod$Dilution + ES2.mod$Condition + ES2.mod$isoRep + ES2.mod$techRep + ES2.mod$sampleNumber)
