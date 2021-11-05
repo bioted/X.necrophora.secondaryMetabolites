@@ -589,7 +589,6 @@ names(ES10.digital.sum)[names(ES10.digital.sum) == "x"] <- "dig.chl"
 
 #Merging ES10 chem and ES10 digital
 ES10.chem.dig = merge(ES10.chem, ES10.digital.sum, by.x='ExpCode', by.y='Group.1')
-ES10.chem.dig
 ```
 
 

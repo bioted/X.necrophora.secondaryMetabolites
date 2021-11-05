@@ -32,7 +32,7 @@ Total chlorophyll content and root length were used as response variables among 
 
 ### analyses
 
-In this folder we provide the R markdown with all statistical analyses using the data provided.
+In this folder we provide the R markdown with all statistical analyses using the data provided. We have provided the results of statistical analyses with both raw and normalized data for comparison.
 
 ### output
 
