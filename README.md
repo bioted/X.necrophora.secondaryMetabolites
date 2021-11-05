@@ -30,10 +30,6 @@ Total chlorophyll content and root length were used as response variables among 
 
 ## Description of the folders provided in this repository
 
-### raw_data
-
-In this folder, we have provided all the datasets used in our analyses.
-
 ### analyses
 
 In this folder we provide the R markdown with all statistical analyses using the data provided.
@@ -41,6 +37,10 @@ In this folder we provide the R markdown with all statistical analyses using the
 ### output
 
 Here we provide output from R markdown, plots, and composite figures found in the manuscript.
+
+### raw_data
+
+In this folder, we have provided all the datasets used in our analyses.
 
 ### scripts
 
@@ -55,20 +55,26 @@ Here we provide an example of the JAVA scripts and macros used on ImageJ to meas
 
 When downloading this repository, open the "analyses" folder and load the R markdown to your Rstudio (or directly into R) and run the code to inspect the results presented in this manuscript. Alternatively, you can read the results provided in the html and PDF versions in the "output" folder.
 
+
+## Notes
+
+1. Other datasets are provided for illustration purposes and to allow reproducible analyses and plotting of the supplementary figures.
+2. Not all the R-packages used for these analyses have been cited, but we acknowledge the work of other scientists and we do not claim ownership of any of these packages. 
+
 ## References
 
 
-Liang Y, Urano D, Liao KL, Hedrick TL, Gao Y, Jones AM. 2017. A nondestructive method to estimate the chlorophyll content of Arabidopsis seedlings. Plant Methods. 13:1–10
+1. Liang Y, Urano D, Liao KL, Hedrick TL, Gao Y, Jones AM. 2017. A nondestructive method to estimate the chlorophyll content of Arabidopsis seedlings. Plant Methods. 13:1–10
 
-Mendiburu F de. 2020. agricolae: statistical procedures for agricultural research.
+2. Mendiburu F de. 2020. agricolae: statistical procedures for agricultural research.
 
-RStudio Team. 2015. RStudio: Integrated development environment for R. RStudio, Inc, Boston, MA. http://www.rstudio.com.
+3. RStudio Team. 2015. RStudio: Integrated development environment for R. RStudio, Inc, Boston, MA. http://www.rstudio.com.
 
-Schneider CA, Rasband WS, Eliceiri KW. 2012. NIH Image to ImageJ: 25 years of image analysis. Nature Methods. 9:671–675.
+4. Schneider CA, Rasband WS, Eliceiri KW. 2012. NIH Image to ImageJ: 25 years of image analysis. Nature Methods. 9:671–675.
 
-Tukey JW. 1977. Exploratory Data Analysis. Biometrics. 33:768.
+5. Tukey JW. 1977. Exploratory Data Analysis. Biometrics. 33:768.
 
-Wickham H, François R, Henry L, Müller K. 2018. dplyr: A grammar of data manipulation.
+6. Wickham H, François R, Henry L, Müller K. 2018. dplyr: A grammar of data manipulation.
 
 
 
