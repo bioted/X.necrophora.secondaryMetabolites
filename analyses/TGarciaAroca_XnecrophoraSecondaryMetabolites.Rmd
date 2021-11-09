@@ -717,10 +717,8 @@ ES10.chem.dig.ggplot <- ggscatter(ES10.chem.dig, x = "chl", y = "dig.chl",
                                                           add = "reg.line", conf.int = TRUE,
                                                           cor.coef = TRUE, 
                                                           cor.method = "pearson",
-                                                          xlab = "Chemical chlorophyll 
-                                                                  content (ng/sq mm)", 
-                                                          ylab = "Digital chlorophyll
-                                                          content (ng/sq mm)") + 
+                                  xlab = "Chemical chlorophyll content (ng/sq mm)", 
+                                  ylab = "Digital chlorophyll content (ng/sq mm)") + 
                                                           labs(tag = "A")
 ES10.chem.dig.ggplot
 ```
