@@ -1,6 +1,5 @@
 ---
-title: Statistical analyses and plotting for *Xylaria necrophora* secondary metabolites
-  experiments
+title: Statistical analyses and plotting for experiments related to the effects of secondary metabolites produced by *Xylaria necrophora* on soybean leaves
 author: "Teddy Garcia-Aroca"
 date: "October 29, 2021"
 output:
@@ -10,7 +9,7 @@ output:
 
 # Install packages needed.
 
-## We first create a vector of all the packages needed
+## First, create a vector of all the packages needed:
 
 ```{r}
 packages <- c("agricolae", "dplyr", "plyr", "ggplot2", "readr", "ggpubr", "car",
@@ -33,7 +32,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # Set the working directory to the directory where the output files will be saved.
 
-In this case, we assume you have cloned/donwloaded this repository to your "Documents" folder.
+In this example, we assume you have cloned/donwloaded this repository to your "Documents" folder.
 
 Change directory on mac/linux:
 
@@ -47,7 +46,9 @@ setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output"
 
 ### Step 1: Call the pdf command to start the plot
 
-    pdf(file = "/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output/ Figure1.pdf",   # The directory you want to save the file in
+    pdf(file = "/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output/
+    
+    Figure1.pdf",   # The directory you want to save the file in
 
     width = 7, # The width of the plot in inches
     
@@ -56,6 +57,7 @@ setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output"
 ### Step 2: Add the code provided below for your desired plot.
 
 ### Step 3: Run dev.off() to create the file!
+
     dev.off()
 
 
@@ -100,6 +102,7 @@ shapiro.test(ES5$chl)
 shapiro.test(ES13B$chl)
 shapiro.test(ES14A$chl)
 ```
+
 ## Check the distribution of the data and assess if normalization is needed.
 
 ```{r}
@@ -158,27 +161,27 @@ As desribed above, this experiment was ran using cell-free culture filtrates (CF
 
 ```{r}
 ###############ES2 analysis (raw data)################################
-ES2.chl.anova <- lm (ES2$chl ~ ES2$Treatment + 
+ES2.chl.lm <- lm (ES2$chl ~ ES2$Treatment + 
                        ES2$Dilution + 
                        ES2$Condition + 
                        ES2$isoRep + 
                        ES2$techRep + 
                        ES2$sampleNumber)
-ES2.chl.anova
-summary(ES2.chl.anova)
-anova(ES2.chl.anova)
+ES2.chl.lm
+summary(ES2.chl.lm)
+anova(ES2.chl.lm)
 
 #Tukey's HSD for Variable chl by Treament
-ES2.chl.treatment.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Treatment', group = T)
+ES2.chl.treatment.HSD.test <- HSD.test(ES2.chl.lm, 'ES2$Treatment', group = T)
 ES2.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl by Dilution
-ES2.chl.dilution.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Dilution', group = T)
+ES2.chl.dilution.HSD.test <- HSD.test(ES2.chl.lm, 'ES2$Dilution', group = T)
 ES2.chl.dilution.HSD.test
 
 
 #Complete ANOVA for ES2 by treatment by dilution
-ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Dilution"), group=TRUE,console=TRUE)
+ES2.comp.HSD.group <- HSD.test(ES2.chl.lm, c("ES2$Treatment", "ES2$Dilution"), group=TRUE,console=TRUE)
 
 ES2.comp.HSD.group
 
@@ -188,27 +191,27 @@ ES2.comp.HSD.group
 
 ```{r}
 ###############ES2 analysis (normalized dataset) ################################
-ES2.mod.chl.anova <- lm (ES2.mod$ES2_chl.tuk ~ ES2.mod$Treatment + 
+ES2.mod.chl.lm <- lm (ES2.mod$ES2_chl.tuk ~ ES2.mod$Treatment + 
                            ES2.mod$Dilution + 
                            ES2.mod$Condition + 
                            ES2.mod$isoRep + 
                            ES2.mod$techRep + 
                            ES2.mod$sampleNumber)
-ES2.mod.chl.anova
-summary(ES2.mod.chl.anova)
-anova(ES2.mod.chl.anova)
+ES2.mod.chl.lm
+summary(ES2.mod.chl.lm)
+anova(ES2.mod.chl.lm)
 
 #Tukey's HSD for Variable chl (tukey trans) by Treament
-ES2.mod.chl.treatment.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Treatment', group = T)
+ES2.mod.chl.treatment.HSD.test <- HSD.test(ES2.mod.chl.lm, 'ES2.mod$Treatment', group = T)
 ES2.mod.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl (tukey trans) by Dilution
-ES2.mod.chl.dilution.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Dilution', group = T)
+ES2.mod.chl.dilution.HSD.test <- HSD.test(ES2.mod.chl.lm, 'ES2.mod$Dilution', group = T)
 ES2.mod.chl.dilution.HSD.test
 
 
 #Complete ANOVA for ES2.mod by treatment by dilution (tukey trans)
-ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.anova, c("ES2.mod$Treatment", 
+ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.lm, c("ES2.mod$Treatment", 
                                                         "ES2.mod$Dilution"), 
                                                         group=TRUE,console=TRUE)
 
@@ -221,30 +224,30 @@ This test was run for 7 DOE and photos were taken of the last day of exposure.
 
 ```{r}
 ###############ES5 analysis################################
-ES5.chl.anova <- lm (ES5$chl ~ ES5$Treatment + 
+ES5.chl.lm <- lm (ES5$chl ~ ES5$Treatment + 
                                ES5$Dilution + 
                                ES5$Condition + 
                                ES5$isoRep + 
                                ES5$techRep + 
                                ES5$sampleNumber)
-ES5.chl.anova
-summary(ES5.chl.anova)
-anova(ES5.chl.anova)
+ES5.chl.lm
+summary(ES5.chl.lm)
+anova(ES5.chl.lm)
 
 #Tukey's HSD for Variable chl by Treament
-ES5.chl.treatment.HSD.test <- HSD.test(ES5.chl.anova, 'ES5$Treatment', group = T)
+ES5.chl.treatment.HSD.test <- HSD.test(ES5.chl.lm, 'ES5$Treatment', group = T)
 ES5.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl by Dilution
-ES5.chl.dilution.HSD.test <- HSD.test(ES5.chl.anova, 'ES5$Dilution', group = T)
+ES5.chl.dilution.HSD.test <- HSD.test(ES5.chl.lm, 'ES5$Dilution', group = T)
 ES5.chl.dilution.HSD.test
 
 #Tukey's HSD for Variable chl by Condition
-ES5.chl.cond.HSD.test <- HSD.test(ES5.chl.anova, 'ES5$Condition', group = T)
+ES5.chl.cond.HSD.test <- HSD.test(ES5.chl.lm, 'ES5$Condition', group = T)
 ES5.chl.cond.HSD.test
 
 #Complete ANOVA for ES5 by treatment by condition, by dilution
-ES5.comp.HSD.group <- HSD.test(ES5.chl.anova, c("ES5$Treatment", "ES5$Condition", 
+ES5.comp.HSD.group <- HSD.test(ES5.chl.lm, c("ES5$Treatment", "ES5$Condition", 
                                                 "ES5$Dilution"), group=TRUE,console=TRUE)
 
 ES5.comp.HSD.group
@@ -254,33 +257,33 @@ ES5.comp.HSD.group
 
 ```{r}
 ###############ES5 analysis (normalized data) ################################
-ES5.mod.chl.anova <- lm (ES5.mod$ES5_chl.tuk ~ ES5.mod$Treatment +
+ES5.mod.chl.lm <- lm (ES5.mod$ES5_chl.tuk ~ ES5.mod$Treatment +
                                                 ES5.mod$Dilution + 
                                                 ES5.mod$Condition + 
                                                 ES5.mod$isoRep + 
                                                 ES5.mod$techRep + 
                                                 ES5.mod$sampleNumber)
-ES5.mod.chl.anova
-summary(ES5.mod.chl.anova)
-anova(ES5.mod.chl.anova)
+ES5.mod.chl.lm
+summary(ES5.mod.chl.lm)
+anova(ES5.mod.chl.lm)
 
 #Tukey's HSD for Variable chl (tukey trans) by Treament
-ES5.mod.chl.treatment.HSD.test <- HSD.test(ES5.mod.chl.anova, 'ES5.mod$Treatment', 
+ES5.mod.chl.treatment.HSD.test <- HSD.test(ES5.mod.chl.lm, 'ES5.mod$Treatment', 
                                            group = T)
 ES5.mod.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl (tukey trans) by Dilution
-ES5.mod.chl.dilution.HSD.test <- HSD.test(ES5.mod.chl.anova, 'ES5.mod$Dilution', 
+ES5.mod.chl.dilution.HSD.test <- HSD.test(ES5.mod.chl.lm, 'ES5.mod$Dilution', 
                                           group = T)
 ES5.mod.chl.dilution.HSD.test
 
 
 #Tukey's HSD for Variable chl (tukey trans) by Condition
-ES5.mod.chl.cond.HSD.test <- HSD.test(ES5.mod.chl.anova, 'ES5.mod$Condition', group = T)
+ES5.mod.chl.cond.HSD.test <- HSD.test(ES5.mod.chl.lm, 'ES5.mod$Condition', group = T)
 ES5.mod.chl.cond.HSD.test
 
 #Complete ANOVA for ES5.mod by treatment by condition, by dilution (tukey trans)
-ES5.mod.comp.HSD.group <- HSD.test(ES5.mod.chl.anova, c("ES5.mod$Treatment",
+ES5.mod.comp.HSD.group <- HSD.test(ES5.mod.chl.lm, c("ES5.mod$Treatment",
                                                         "ES5.mod$Condition",
                                                         "ES5.mod$Dilution"),
                                                         group=TRUE,console=TRUE)
@@ -294,25 +297,25 @@ Testing variation among potentially resistant cultivars compared to known suscep
 ```{r}
 #Statistical analysis
 #####ES13B###
-ES13B.chl.anova <- lm (ES13B$chl ~ ES13B$Treatment + 
+ES13B.chl.lm <- lm (ES13B$chl ~ ES13B$Treatment + 
                          ES13B$HostVariety + 
                          ES13B$isoRepNumber + 
                          ES13B$techRepNumber + 
                          ES13B$SampleNumber)
-ES13B.chl.anova
-summary(ES13B.chl.anova)
-anova(ES13B.chl.anova)
+ES13B.chl.lm
+summary(ES13B.chl.lm)
+anova(ES13B.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES13B.chl.treatment.HSD.test <- HSD.test(ES13B.chl.anova, 'ES13B$Treatment', group = T)
+ES13B.chl.treatment.HSD.test <- HSD.test(ES13B.chl.lm, 'ES13B$Treatment', group = T)
 ES13B.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl by Soybean Cultivar
-ES13B.chl.host_variety.HSD.test <- HSD.test(ES13B.chl.anova, 'ES13B$HostVariety', group = T)
+ES13B.chl.host_variety.HSD.test <- HSD.test(ES13B.chl.lm, 'ES13B$HostVariety', group = T)
 ES13B.chl.host_variety.HSD.test
 
 #Complete ANOVA for ES13B
-ES13B.comp.HSD.group <- HSD.test(ES13B.chl.anova, c("ES13B$Treatment", "ES13B$HostVariety"),
+ES13B.comp.HSD.group <- HSD.test(ES13B.chl.lm, c("ES13B$Treatment", "ES13B$HostVariety"),
                                  group=TRUE,console=TRUE)
 
 ES13B.comp.HSD.group
@@ -324,27 +327,27 @@ ES13B.comp.HSD.group
 ```{r}
 #Statistical analysis
 #####ES13B.mod###
-ES13B.mod.chl.anova <- lm (ES13B.mod$ES13B_chl.tuk ~ ES13B.mod$Treatment + 
+ES13B.mod.chl.lm <- lm (ES13B.mod$ES13B_chl.tuk ~ ES13B.mod$Treatment + 
                              ES13B.mod$HostVariety + 
                              ES13B.mod$isoRepNumber + 
                              ES13B.mod$techRepNumber + 
                              ES13B.mod$SampleNumber)
-ES13B.mod.chl.anova
-summary(ES13B.mod.chl.anova)
-anova(ES13B.mod.chl.anova)
+ES13B.mod.chl.lm
+summary(ES13B.mod.chl.lm)
+anova(ES13B.mod.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES13B.mod.chl.treatment.HSD.test <- HSD.test(ES13B.mod.chl.anova, 'ES13B.mod$Treatment',
+ES13B.mod.chl.treatment.HSD.test <- HSD.test(ES13B.mod.chl.lm, 'ES13B.mod$Treatment',
                                              group = T)
 ES13B.mod.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl by Soybean Cultivar
-ES13B.mod.chl.host_variety.HSD.test <- HSD.test(ES13B.mod.chl.anova,
+ES13B.mod.chl.host_variety.HSD.test <- HSD.test(ES13B.mod.chl.lm,
                                                 'ES13B.mod$HostVariety', group = T)
 ES13B.mod.chl.host_variety.HSD.test
 
 #Complete ANOVA for ES13B.mod
-ES13B.mod.comp.HSD.group <- HSD.test(ES13B.mod.chl.anova, c("ES13B.mod$Treatment", 
+ES13B.mod.comp.HSD.group <- HSD.test(ES13B.mod.chl.lm, c("ES13B.mod$Treatment", 
                                                             "ES13B.mod$HostVariety"), 
                                                             group=TRUE,console=TRUE)
 
@@ -358,24 +361,24 @@ This dataset contains chlorophyll content measured among plant species treated w
 
 ```{r}
 #####ES14A###
-ES14A.chl.anova <- lm (ES14A$chl ~ ES14A$Treatment + 
+ES14A.chl.lm <- lm (ES14A$chl ~ ES14A$Treatment + 
                          ES14A$Host + ES14A$isoRepNumber + 
                          ES14A$techRepNumber + 
                          ES14A$LeafSampleNumber)
-ES14A.chl.anova
-summary(ES14A.chl.anova)
-anova(ES14A.chl.anova)
+ES14A.chl.lm
+summary(ES14A.chl.lm)
+anova(ES14A.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES14A.chl.treatment.HSD.test <- HSD.test(ES14A.chl.anova, 'ES14A$Treatment', group = T)
+ES14A.chl.treatment.HSD.test <- HSD.test(ES14A.chl.lm, 'ES14A$Treatment', group = T)
 ES14A.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl by Plant Species
-ES14A.chl.host.HSD.test <- HSD.test(ES14A.chl.anova, 'ES14A$Host', group = T)
+ES14A.chl.host.HSD.test <- HSD.test(ES14A.chl.lm, 'ES14A$Host', group = T)
 ES14A.chl.host.HSD.test
 
 #Complete ANOVA for ES14A
-ES14A.comp.HSD.group <- HSD.test(ES14A.chl.anova, c("ES14A$Treatment", "ES14A$Host"), group=TRUE,console=TRUE)
+ES14A.comp.HSD.group <- HSD.test(ES14A.chl.lm, c("ES14A$Treatment", "ES14A$Host"), group=TRUE,console=TRUE)
 
 ES14A.comp.HSD.group
 ```
@@ -384,25 +387,25 @@ ES14A.comp.HSD.group
 
 ```{r}
 #####ES14A.mod.mod###
-ES14A.mod.chl.anova <- lm (ES14A.mod$ES14A_chl.tuk ~ ES14A.mod$Treatment + 
+ES14A.mod.chl.lm <- lm (ES14A.mod$ES14A_chl.tuk ~ ES14A.mod$Treatment + 
                              ES14A.mod$Host + 
                              ES14A.mod$isoRepNumber + 
                              ES14A.mod$techRepNumber + 
                              ES14A.mod$LeafSampleNumber)
-ES14A.mod.chl.anova
-summary(ES14A.mod.chl.anova)
-anova(ES14A.mod.chl.anova)
+ES14A.mod.chl.lm
+summary(ES14A.mod.chl.lm)
+anova(ES14A.mod.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES14A.mod.chl.treatment.HSD.test <- HSD.test(ES14A.mod.chl.anova, 'ES14A.mod$Treatment', group = T)
+ES14A.mod.chl.treatment.HSD.test <- HSD.test(ES14A.mod.chl.lm, 'ES14A.mod$Treatment', group = T)
 ES14A.mod.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl by Plant Species
-ES14A.mod.chl.host.HSD.test <- HSD.test(ES14A.mod.chl.anova, 'ES14A.mod$Host', group = T)
+ES14A.mod.chl.host.HSD.test <- HSD.test(ES14A.mod.chl.lm, 'ES14A.mod$Host', group = T)
 ES14A.mod.chl.host.HSD.test
 
 #Complete ANOVA for ES14A.mod
-ES14A.mod.comp.HSD.group <- HSD.test(ES14A.mod.chl.anova, c("ES14A.mod$Treatment",
+ES14A.mod.comp.HSD.group <- HSD.test(ES14A.mod.chl.lm, c("ES14A.mod$Treatment",
                                                             "ES14A.mod$Host"),
                                                             group=TRUE,console=TRUE)
 
