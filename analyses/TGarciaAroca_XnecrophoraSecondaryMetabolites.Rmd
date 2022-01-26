@@ -1,6 +1,5 @@
 ---
-title: Statistical analyses and plotting for *Xylaria necrophora* secondary metabolites
-  experiments
+title: Statistical analyses and plotting for experiments related to the effects of secondary metabolites produced by *Xylaria necrophora* on soybean leaves
 author: "Teddy Garcia-Aroca"
 date: "October 29, 2021"
 output:
@@ -10,10 +9,11 @@ output:
 
 # Install packages needed.
 
-## We first create a vector of all the packages needed
+## First, create a vector of all the packages needed:
 
 ```{r}
-packages <- c("agricolae", "dplyr", "plyr", "ggplot2", "readr", "ggpubr", "car", "rcompanion", "tidyverse", "ggsignif", "reshape")
+packages <- c("agricolae", "dplyr", "plyr", "ggplot2", "readr", "ggpubr", "car",
+              "rcompanion", "tidyverse", "ggsignif", "reshape")
 ```
 
 ## Install packages not yet installed
@@ -32,7 +32,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 
 # Set the working directory to the directory where the output files will be saved.
 
-In this case, we assume you have cloned/donwloaded this repository to your "Documents" folder.
+In this example, we assume you have cloned/donwloaded this repository to your "Documents" folder.
 
 Change directory on mac/linux:
 
@@ -46,7 +46,9 @@ setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output"
 
 ### Step 1: Call the pdf command to start the plot
 
-    pdf(file = "/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output/ Figure1.pdf",   # The directory you want to save the file in
+    pdf(file = "/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output/
+    
+    Figure1.pdf",   # The directory you want to save the file in
 
     width = 7, # The width of the plot in inches
     
@@ -55,6 +57,7 @@ setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output"
 ### Step 2: Add the code provided below for your desired plot.
 
 ### Step 3: Run dev.off() to create the file!
+
     dev.off()
 
 
@@ -64,7 +67,7 @@ setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output"
 setwd("/Users/tedggarcia/Documents/X.necrophora.secondaryMetabolites/output/")
 ```
 
-# Loading digital Chlorophyll content datasets (only one repetition of each experiment for illustration purposes). All datasets can be found in the folder named "raw_data"
+# Loading digital chlorophyll content datasets (only one repetition of each experiment for illustration purposes). All datasets can be found in the folder named "raw_data"
 
 ES2 = First experiment for 14 Days of exporuse (DOE)
 
@@ -85,8 +88,10 @@ ES14A = Experiment testing effects among plant species (7DOE)
 ```{r}
 ES2 <- read.csv("../raw_data/ES2.ChlorophyllContent.14DOE.Exp1.csv", header = T)
 ES5 <- read.csv("../raw_data/ES5.ChlorophyllContent.7DOE.Exp1.csv", header = T)
-ES13B <- read.csv("../raw_data/ES13B.ChlorophyllContent.7DOE.Exp2.Cultivars.csv", header = T)
-ES14A <- read.csv("../raw_data/ES14A.ChlorophyllContent.7DOE.Exp1.PlantSpecies.csv", header = T)
+ES13B <- read.csv("../raw_data/ES13B.ChlorophyllContent.7DOE.Exp2.Cultivars.csv",
+                  header = T)
+ES14A <- read.csv("../raw_data/ES14A.ChlorophyllContent.7DOE.Exp1.PlantSpecies.csv", 
+                  header = T)
 ```
 
 ## Run Shapiro-Wilk Tests to check for normality
@@ -97,25 +102,34 @@ shapiro.test(ES5$chl)
 shapiro.test(ES13B$chl)
 shapiro.test(ES14A$chl)
 ```
+
 ## Check the distribution of the data and assess if normalization is needed.
 
 ```{r}
-ggdensity(ES2$chl, main = "Density of Chlorophyll Content (digital) for ES2", xlab = "Datapoints")
-ggdensity(ES5$chl, main = "Density of Chlorophyll Content (digital) for ES5", xlab = "Datapoints")
+ggdensity(ES2$chl, main = "Density of Chlorophyll Content (digital) for ES2",
+          xlab = "Datapoints")
+ggdensity(ES5$chl, main = "Density of Chlorophyll Content (digital) for ES5", 
+          xlab = "Datapoints")
 
-ggdensity(ES13B$chl, main = "Density of Chlorophyll Content (digital) for ES13B", xlab = "Datapoints")
+ggdensity(ES13B$chl, main = "Density of Chlorophyll Content (digital) for ES13B", 
+          xlab = "Datapoints")
 
-ggdensity(ES14A$chl, main = "Density of Chlorophyll Content (digital) for ES14A", xlab = "Datapoints")
+ggdensity(ES14A$chl, main = "Density of Chlorophyll Content (digital) for ES14A", 
+          xlab = "Datapoints")
 
 ggqqplot(ES2$chl)
 ggqqplot(ES5$chl)
 ggqqplot(ES13B$chl)
 ggqqplot(ES14A$chl)
 
-plotNormalHistogram(ES2$chl, main = "Density of Chlorophyll Content (Digital) for ES2", xlab = "Datapoints")
-plotNormalHistogram(ES5$chl, main = "Density of Chlorophyll Content (Digital) for ES5", xlab = "Datapoints")
-plotNormalHistogram(ES13B$chl, main = "Density of Chlorophyll Content (Digital) for E13B", xlab = "Datapoints")
-plotNormalHistogram(ES14A$chl, main = "Density of Chlorophyll Content (Digital) for E14A", xlab = "Datapoints")
+plotNormalHistogram(ES2$chl, main = "Density of Chlorophyll Content (Digital) for ES2", 
+                    xlab = "Datapoints")
+plotNormalHistogram(ES5$chl, main = "Density of Chlorophyll Content (Digital) for ES5", 
+                    xlab = "Datapoints")
+plotNormalHistogram(ES13B$chl, main = "Density of Chlorophyll Content (Digital) for E13B",
+                    xlab = "Datapoints")
+plotNormalHistogram(ES14A$chl, main = "Density of Chlorophyll Content (Digital) for E14A",
+                    xlab = "Datapoints")
 
 ```
 
@@ -146,65 +160,60 @@ Run ANOVA and Tukey's honest significance differences for raw chlorophyll conten
 As desribed above, this experiment was ran using cell-free culture filtrates (CFCFs) from three local strains of *Xylaria necrophora* (DMCC2126, DMCC2127, and DMCC2165) and one *Colletotrichum siamense* (DMCC2966) for 14 days (ES2)
 
 ```{r}
-###############ES2 analysis################################
-ES2.chl.anova <- lm (ES2$chl ~ ES2$Treatment + ES2$Dilution + ES2$Condition + ES2$isoRep + ES2$techRep + ES2$sampleNumber)
-ES2.chl.anova
-summary(ES2.chl.anova)
-anova(ES2.chl.anova)
+###############ES2 analysis (raw data)################################
+ES2.chl.lm <- lm (ES2$chl ~ ES2$Treatment + 
+                       ES2$Dilution + 
+                       ES2$Condition + 
+                       ES2$isoRep + 
+                       ES2$techRep + 
+                       ES2$sampleNumber)
+ES2.chl.lm
+summary(ES2.chl.lm)
+anova(ES2.chl.lm)
 
-#Tukey's HSD for Variable chl (tukey trans) by Treament
-ES2.chl.treatment.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Treatment', group = T)
+#Tukey's HSD for Variable chl by Treament
+ES2.chl.treatment.HSD.test <- HSD.test(ES2.chl.lm, 'ES2$Treatment', group = T)
 ES2.chl.treatment.HSD.test
 
-#Tukey's HSD for Variable chl (tukey trans) by Dilution
-ES2.chl.dilution.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$Dilution', group = T)
+#Tukey's HSD for Variable chl by Dilution
+ES2.chl.dilution.HSD.test <- HSD.test(ES2.chl.lm, 'ES2$Dilution', group = T)
 ES2.chl.dilution.HSD.test
-
-#Tukey's HSD for Variable chl (tukey trans) by isoRep
-ES2.chl.isoRep.HSD.test <- HSD.test(ES2.chl.anova, 'ES2$isoRep', group = T)
-ES2.chl.isoRep.HSD.test
 
 
 #Complete ANOVA for ES2 by treatment by dilution
-ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Dilution"), group=TRUE,console=TRUE)
+ES2.comp.HSD.group <- HSD.test(ES2.chl.lm, c("ES2$Treatment", "ES2$Dilution"), group=TRUE,console=TRUE)
 
 ES2.comp.HSD.group
 
-#Complete ANOVA for ES2 by treatment by condition, by dilution
-ES2.comp.HSD.group <- HSD.test(ES2.chl.anova, c("ES2$Treatment", "ES2$Condition", "ES2$Dilution"), group=TRUE,console=TRUE)
-
-ES2.comp.HSD.group
 ```
 
 ## Same analysis using the normalized dataset
 
 ```{r}
 ###############ES2 analysis (normalized dataset) ################################
-ES2.mod.chl.anova <- lm (ES2.mod$ES2_chl.tuk ~ ES2.mod$Treatment + ES2.mod$Dilution + ES2.mod$Condition + ES2.mod$isoRep + ES2.mod$techRep + ES2.mod$sampleNumber)
-ES2.mod.chl.anova
-summary(ES2.mod.chl.anova)
-anova(ES2.mod.chl.anova)
+ES2.mod.chl.lm <- lm (ES2.mod$ES2_chl.tuk ~ ES2.mod$Treatment + 
+                           ES2.mod$Dilution + 
+                           ES2.mod$Condition + 
+                           ES2.mod$isoRep + 
+                           ES2.mod$techRep + 
+                           ES2.mod$sampleNumber)
+ES2.mod.chl.lm
+summary(ES2.mod.chl.lm)
+anova(ES2.mod.chl.lm)
 
 #Tukey's HSD for Variable chl (tukey trans) by Treament
-ES2.mod.chl.treatment.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Treatment', group = T)
+ES2.mod.chl.treatment.HSD.test <- HSD.test(ES2.mod.chl.lm, 'ES2.mod$Treatment', group = T)
 ES2.mod.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl (tukey trans) by Dilution
-ES2.mod.chl.dilution.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$Dilution', group = T)
+ES2.mod.chl.dilution.HSD.test <- HSD.test(ES2.mod.chl.lm, 'ES2.mod$Dilution', group = T)
 ES2.mod.chl.dilution.HSD.test
 
-#Tukey's HSD for Variable chl (tukey trans) by isoRep
-ES2.mod.chl.isoRep.HSD.test <- HSD.test(ES2.mod.chl.anova, 'ES2.mod$isoRep', group = T)
-ES2.mod.chl.isoRep.HSD.test
 
-
-#Complete ANOVA for ES2.mod by treatment by dilution
-ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.anova, c("ES2.mod$Treatment", "ES2.mod$Dilution"), group=TRUE,console=TRUE)
-
-ES2.mod.comp.HSD.group
-
-#Complete ANOVA for ES2.mod by treatment by condition, by dilution
-ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.anova, c("ES2.mod$Treatment", "ES2.mod$Condition", "ES2.mod$Dilution"))
+#Complete ANOVA for ES2.mod by treatment by dilution (tukey trans)
+ES2.mod.comp.HSD.group <- HSD.test(ES2.mod.chl.lm, c("ES2.mod$Treatment", 
+                                                        "ES2.mod$Dilution"), 
+                                                        group=TRUE,console=TRUE)
 
 ES2.mod.comp.HSD.group
 ```
@@ -215,31 +224,31 @@ This test was run for 7 DOE and photos were taken of the last day of exposure.
 
 ```{r}
 ###############ES5 analysis################################
-ES5.chl.anova <- lm (ES5$chl ~ ES5$Treatment + ES5$Dilution + ES5$Condition + ES5$isoRep + ES5$techRep + ES5$sampleNumber)
-ES5.chl.anova
-summary(ES5.chl.anova)
-anova(ES5.chl.anova)
+ES5.chl.lm <- lm (ES5$chl ~ ES5$Treatment + 
+                               ES5$Dilution + 
+                               ES5$Condition + 
+                               ES5$isoRep + 
+                               ES5$techRep + 
+                               ES5$sampleNumber)
+ES5.chl.lm
+summary(ES5.chl.lm)
+anova(ES5.chl.lm)
 
-#Tukey's HSD for Variable chl (tukey trans) by Treament
-ES5.chl.treatment.HSD.test <- HSD.test(ES5.chl.anova, 'ES5$Treatment', group = T)
+#Tukey's HSD for Variable chl by Treament
+ES5.chl.treatment.HSD.test <- HSD.test(ES5.chl.lm, 'ES5$Treatment', group = T)
 ES5.chl.treatment.HSD.test
 
-#Tukey's HSD for Variable chl (tukey trans) by Dilution
-ES5.chl.dilution.HSD.test <- HSD.test(ES5.chl.anova, 'ES5$Dilution', group = T)
+#Tukey's HSD for Variable chl by Dilution
+ES5.chl.dilution.HSD.test <- HSD.test(ES5.chl.lm, 'ES5$Dilution', group = T)
 ES5.chl.dilution.HSD.test
 
-#Tukey's HSD for Variable chl (tukey trans) by isoRep
-ES5.chl.isoRep.HSD.test <- HSD.test(ES5.chl.anova, 'ES5$isoRep', group = T)
-ES5.chl.isoRep.HSD.test
-
-
-#Complete ANOVA for ES5 by treatment by dilution
-ES5.comp.HSD.group <- HSD.test(ES5.chl.anova, c("ES5$Treatment", "ES5$Dilution"), group=TRUE,console=TRUE)
-
-ES5.comp.HSD.group
+#Tukey's HSD for Variable chl by Condition
+ES5.chl.cond.HSD.test <- HSD.test(ES5.chl.lm, 'ES5$Condition', group = T)
+ES5.chl.cond.HSD.test
 
 #Complete ANOVA for ES5 by treatment by condition, by dilution
-ES5.comp.HSD.group <- HSD.test(ES5.chl.anova, c("ES5$Treatment", "ES5$Condition", "ES5$Dilution"), group=TRUE,console=TRUE)
+ES5.comp.HSD.group <- HSD.test(ES5.chl.lm, c("ES5$Treatment", "ES5$Condition", 
+                                                "ES5$Dilution"), group=TRUE,console=TRUE)
 
 ES5.comp.HSD.group
 ```
@@ -248,32 +257,36 @@ ES5.comp.HSD.group
 
 ```{r}
 ###############ES5 analysis (normalized data) ################################
-ES5.mod.chl.anova <- lm (ES5.mod$ES5_chl.tuk ~ ES5.mod$Treatment + ES5.mod$Dilution + ES5.mod$Condition + ES5.mod$isoRep + ES5.mod$techRep + ES5.mod$sampleNumber)
-ES5.mod.chl.anova
-summary(ES5.mod.chl.anova)
-anova(ES5.mod.chl.anova)
+ES5.mod.chl.lm <- lm (ES5.mod$ES5_chl.tuk ~ ES5.mod$Treatment +
+                                                ES5.mod$Dilution + 
+                                                ES5.mod$Condition + 
+                                                ES5.mod$isoRep + 
+                                                ES5.mod$techRep + 
+                                                ES5.mod$sampleNumber)
+ES5.mod.chl.lm
+summary(ES5.mod.chl.lm)
+anova(ES5.mod.chl.lm)
 
 #Tukey's HSD for Variable chl (tukey trans) by Treament
-ES5.mod.chl.treatment.HSD.test <- HSD.test(ES5.mod.chl.anova, 'ES5.mod$Treatment', group = T)
+ES5.mod.chl.treatment.HSD.test <- HSD.test(ES5.mod.chl.lm, 'ES5.mod$Treatment', 
+                                           group = T)
 ES5.mod.chl.treatment.HSD.test
 
 #Tukey's HSD for Variable chl (tukey trans) by Dilution
-ES5.mod.chl.dilution.HSD.test <- HSD.test(ES5.mod.chl.anova, 'ES5.mod$Dilution', group = T)
+ES5.mod.chl.dilution.HSD.test <- HSD.test(ES5.mod.chl.lm, 'ES5.mod$Dilution', 
+                                          group = T)
 ES5.mod.chl.dilution.HSD.test
 
-#Tukey's HSD for Variable chl (tukey trans) by isoRep
-ES5.mod.chl.isoRep.HSD.test <- HSD.test(ES5.mod.chl.anova, 'ES5.mod$isoRep', group = T)
-ES5.mod.chl.isoRep.HSD.test
 
+#Tukey's HSD for Variable chl (tukey trans) by Condition
+ES5.mod.chl.cond.HSD.test <- HSD.test(ES5.mod.chl.lm, 'ES5.mod$Condition', group = T)
+ES5.mod.chl.cond.HSD.test
 
-#Complete ANOVA for ES5.mod by treatment by dilution
-ES5.mod.comp.HSD.group <- HSD.test(ES5.mod.chl.anova, c("ES5.mod$Treatment", "ES5.mod$Dilution"), group=TRUE,console=TRUE)
-
-ES5.mod.comp.HSD.group
-
-#Complete ANOVA for ES5.mod by treatment by condition, by dilution
-ES5.mod.comp.HSD.group <- HSD.test(ES5.mod.chl.anova, c("ES5.mod$Treatment", "ES5.mod$Condition", "ES5.mod$Dilution"), group=TRUE,console=TRUE)
-
+#Complete ANOVA for ES5.mod by treatment by condition, by dilution (tukey trans)
+ES5.mod.comp.HSD.group <- HSD.test(ES5.mod.chl.lm, c("ES5.mod$Treatment",
+                                                        "ES5.mod$Condition",
+                                                        "ES5.mod$Dilution"),
+                                                        group=TRUE,console=TRUE)
 ES5.mod.comp.HSD.group
 ```
 
@@ -284,21 +297,26 @@ Testing variation among potentially resistant cultivars compared to known suscep
 ```{r}
 #Statistical analysis
 #####ES13B###
-ES13B.chl.anova <- lm (ES13B$chl ~ ES13B$Treatment + ES13B$HostVariety + ES13B$isoRepNumber + ES13B$techRepNumber + ES13B$SampleNumber)
-ES13B.chl.anova
-summary(ES13B.chl.anova)
-anova(ES13B.chl.anova)
+ES13B.chl.lm <- lm (ES13B$chl ~ ES13B$Treatment + 
+                         ES13B$HostVariety + 
+                         ES13B$isoRepNumber + 
+                         ES13B$techRepNumber + 
+                         ES13B$SampleNumber)
+ES13B.chl.lm
+summary(ES13B.chl.lm)
+anova(ES13B.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES13B.chl.treatment.HSD.test <- HSD.test(ES13B.chl.anova, 'ES13B$Treatment', group = T)
+ES13B.chl.treatment.HSD.test <- HSD.test(ES13B.chl.lm, 'ES13B$Treatment', group = T)
 ES13B.chl.treatment.HSD.test
 
-#Tukey's HSD for Variable chl by Host variety
-ES13B.chl.host_variety.HSD.test <- HSD.test(ES13B.chl.anova, 'ES13B$HostVariety', group = T)
+#Tukey's HSD for Variable chl by Soybean Cultivar
+ES13B.chl.host_variety.HSD.test <- HSD.test(ES13B.chl.lm, 'ES13B$HostVariety', group = T)
 ES13B.chl.host_variety.HSD.test
 
 #Complete ANOVA for ES13B
-ES13B.comp.HSD.group <- HSD.test(ES13B.chl.anova, c("ES13B$Treatment", "ES13B$HostVariety"), group=TRUE,console=TRUE)
+ES13B.comp.HSD.group <- HSD.test(ES13B.chl.lm, c("ES13B$Treatment", "ES13B$HostVariety"),
+                                 group=TRUE,console=TRUE)
 
 ES13B.comp.HSD.group
 
@@ -309,21 +327,29 @@ ES13B.comp.HSD.group
 ```{r}
 #Statistical analysis
 #####ES13B.mod###
-ES13B.mod.chl.anova <- lm (ES13B.mod$ES13B_chl.tuk ~ ES13B.mod$Treatment + ES13B.mod$HostVariety + ES13B.mod$isoRepNumber + ES13B.mod$techRepNumber + ES13B.mod$SampleNumber)
-ES13B.mod.chl.anova
-summary(ES13B.mod.chl.anova)
-anova(ES13B.mod.chl.anova)
+ES13B.mod.chl.lm <- lm (ES13B.mod$ES13B_chl.tuk ~ ES13B.mod$Treatment + 
+                             ES13B.mod$HostVariety + 
+                             ES13B.mod$isoRepNumber + 
+                             ES13B.mod$techRepNumber + 
+                             ES13B.mod$SampleNumber)
+ES13B.mod.chl.lm
+summary(ES13B.mod.chl.lm)
+anova(ES13B.mod.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES13B.mod.chl.treatment.HSD.test <- HSD.test(ES13B.mod.chl.anova, 'ES13B.mod$Treatment', group = T)
+ES13B.mod.chl.treatment.HSD.test <- HSD.test(ES13B.mod.chl.lm, 'ES13B.mod$Treatment',
+                                             group = T)
 ES13B.mod.chl.treatment.HSD.test
 
-#Tukey's HSD for Variable chl by Host variety
-ES13B.mod.chl.host_variety.HSD.test <- HSD.test(ES13B.mod.chl.anova, 'ES13B.mod$HostVariety', group = T)
+#Tukey's HSD for Variable chl by Soybean Cultivar
+ES13B.mod.chl.host_variety.HSD.test <- HSD.test(ES13B.mod.chl.lm,
+                                                'ES13B.mod$HostVariety', group = T)
 ES13B.mod.chl.host_variety.HSD.test
 
 #Complete ANOVA for ES13B.mod
-ES13B.mod.comp.HSD.group <- HSD.test(ES13B.mod.chl.anova, c("ES13B.mod$Treatment", "ES13B.mod$HostVariety"), group=TRUE,console=TRUE)
+ES13B.mod.comp.HSD.group <- HSD.test(ES13B.mod.chl.lm, c("ES13B.mod$Treatment", 
+                                                            "ES13B.mod$HostVariety"), 
+                                                            group=TRUE,console=TRUE)
 
 ES13B.mod.comp.HSD.group
 
@@ -335,21 +361,24 @@ This dataset contains chlorophyll content measured among plant species treated w
 
 ```{r}
 #####ES14A###
-ES14A.chl.anova <- lm (ES14A$chl ~ ES14A$Treatment + ES14A$Host + ES14A$isoRepNumber + ES14A$techRepNumber + ES14A$LeafSampleNumber)
-ES14A.chl.anova
-summary(ES14A.chl.anova)
-anova(ES14A.chl.anova)
+ES14A.chl.lm <- lm (ES14A$chl ~ ES14A$Treatment + 
+                         ES14A$Host + ES14A$isoRepNumber + 
+                         ES14A$techRepNumber + 
+                         ES14A$LeafSampleNumber)
+ES14A.chl.lm
+summary(ES14A.chl.lm)
+anova(ES14A.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES14A.chl.treatment.HSD.test <- HSD.test(ES14A.chl.anova, 'ES14A$Treatment', group = T)
+ES14A.chl.treatment.HSD.test <- HSD.test(ES14A.chl.lm, 'ES14A$Treatment', group = T)
 ES14A.chl.treatment.HSD.test
 
-#Tukey's HSD for Variable chl by Host
-ES14A.chl.host.HSD.test <- HSD.test(ES14A.chl.anova, 'ES14A$Host', group = T)
+#Tukey's HSD for Variable chl by Plant Species
+ES14A.chl.host.HSD.test <- HSD.test(ES14A.chl.lm, 'ES14A$Host', group = T)
 ES14A.chl.host.HSD.test
 
 #Complete ANOVA for ES14A
-ES14A.comp.HSD.group <- HSD.test(ES14A.chl.anova, c("ES14A$Treatment", "ES14A$Host"), group=TRUE,console=TRUE)
+ES14A.comp.HSD.group <- HSD.test(ES14A.chl.lm, c("ES14A$Treatment", "ES14A$Host"), group=TRUE,console=TRUE)
 
 ES14A.comp.HSD.group
 ```
@@ -358,21 +387,27 @@ ES14A.comp.HSD.group
 
 ```{r}
 #####ES14A.mod.mod###
-ES14A.mod.chl.anova <- lm (ES14A.mod$ES14A_chl.tuk ~ ES14A.mod$Treatment + ES14A.mod$Host + ES14A.mod$isoRepNumber + ES14A.mod$techRepNumber + ES14A.mod$LeafSampleNumber)
-ES14A.mod.chl.anova
-summary(ES14A.mod.chl.anova)
-anova(ES14A.mod.chl.anova)
+ES14A.mod.chl.lm <- lm (ES14A.mod$ES14A_chl.tuk ~ ES14A.mod$Treatment + 
+                             ES14A.mod$Host + 
+                             ES14A.mod$isoRepNumber + 
+                             ES14A.mod$techRepNumber + 
+                             ES14A.mod$LeafSampleNumber)
+ES14A.mod.chl.lm
+summary(ES14A.mod.chl.lm)
+anova(ES14A.mod.chl.lm)
 
 #Tukey's HSD for Variable chl by Treatment
-ES14A.mod.chl.treatment.HSD.test <- HSD.test(ES14A.mod.chl.anova, 'ES14A.mod$Treatment', group = T)
+ES14A.mod.chl.treatment.HSD.test <- HSD.test(ES14A.mod.chl.lm, 'ES14A.mod$Treatment', group = T)
 ES14A.mod.chl.treatment.HSD.test
 
-#Tukey's HSD for Variable chl by Host
-ES14A.mod.chl.host.HSD.test <- HSD.test(ES14A.mod.chl.anova, 'ES14A.mod$Host', group = T)
+#Tukey's HSD for Variable chl by Plant Species
+ES14A.mod.chl.host.HSD.test <- HSD.test(ES14A.mod.chl.lm, 'ES14A.mod$Host', group = T)
 ES14A.mod.chl.host.HSD.test
 
 #Complete ANOVA for ES14A.mod
-ES14A.mod.comp.HSD.group <- HSD.test(ES14A.mod.chl.anova, c("ES14A.mod$Treatment", "ES14A.mod$Host"), group=TRUE,console=TRUE)
+ES14A.mod.comp.HSD.group <- HSD.test(ES14A.mod.chl.lm, c("ES14A.mod$Treatment",
+                                                            "ES14A.mod$Host"),
+                                                            group=TRUE,console=TRUE)
 
 ES14A.mod.comp.HSD.group
 ```
@@ -397,14 +432,20 @@ ES5.Xn <- ES5.Xn %>%
 ES5.mod.v2 <- rbind(ES5.control, ES5.Xn)
 
 
-ES5.mod.ggplot <- ggplot(ES5.mod.v2, aes(x = reorder(Species, -chl, na.rm = TRUE), y = chl, fill = Species)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES5.mod.ggplot <- ggplot(ES5.mod.v2, aes(x = reorder(Species, -chl, na.rm = TRUE), 
+                                         y = chl, fill = Species)) + 
+  geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
   #scale_fill_grey(start = 1, end = 0.4) + labs(tag = "A") +
   scale_fill_manual(values = c("#FFFFFF", "#545454"))+ labs(tag = "A") +
   xlab("Treatment") + ylab("Total Chlorophyll (ng/sq mm)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + 
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"),
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + 
   facet_wrap(~ Dilution)
-ES5.mod.ggplot #+ stat_compare_means(aes(group = Dilution), label = "p.signif", na.rm = TRUE)
+ES5.mod.ggplot
 ```
 
 ## Individual plot for panel B
@@ -430,17 +471,24 @@ ES2.mod.v2 <- rbind(ES2.control, ES2.coll, ES2.Xn)
 
 #Reorganizing for plotting
 
-ES2.mod.v2$Species <- factor(ES2.mod.v2$Species,                 # Relevel group factor
+ES2.mod.v2$Species <- factor(ES2.mod.v2$Species,                 
                          levels = c("control", "C.siamense", "X.necrophora"))
 
-ES2.mod.v2.ggplot <- ggplot(ES2.mod.v2, aes(x = reorder(Species, -chl, na.rm = TRUE), y = chl, fill = Species)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES2.mod.v2.ggplot <- ggplot(ES2.mod.v2, aes(x = reorder(Species, -chl, na.rm = TRUE),
+                                            y = chl, fill = Species)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
  # scale_fill_grey("control" = 1, "C.siamense" =0.7, "X.necrophora"= 0.4) 
   scale_fill_manual(values = c("#FFFFFF", "#AAAAAA", "#545454"))+ labs(tag = "B") +
   xlab("Treatment") + ylab("Total Chlorophyll (ng/sq mm)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + 
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) + 
   facet_wrap(~ Dilution)
-ES2.mod.v2.ggplot #+ stat_compare_means(aes(group = Dilution), label = "p.signif", na.rm = TRUE)
+ES2.mod.v2.ggplot
 ```
 
 ## Plot composite figure 1
@@ -449,7 +497,7 @@ ES2.mod.v2.ggplot #+ stat_compare_means(aes(group = Dilution), label = "p.signif
 ```{r}
 
 ###Grid for composite figure 1 (updated 10/25/2021). Using ES2 and ES5 only.
-gridExtra::grid.arrange(ES5.mod.ggplot, ES2.mod.v2.ggplot, ncol=2) #+ ggtitle("Digital chlorophyll content by treatment")
+gridExtra::grid.arrange(ES5.mod.ggplot, ES2.mod.v2.ggplot, ncol=2)
 ```
 
 ## Plotting individual plots and composite figure 3
@@ -459,38 +507,60 @@ gridExtra::grid.arrange(ES5.mod.ggplot, ES2.mod.v2.ggplot, ncol=2) #+ ggtitle("D
 
 ```{r}
 ###Plot HostVariety only w/ outliers
-ES13B.ByHosCult <- ggplot(ES13B.mod, aes(x = reorder(HostVariety, -chl, na.rm = TRUE), y = chl, fill=HostVariety)) + geom_boxplot() + #+ geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES13B.ByHosCult <- ggplot(ES13B.mod, aes(x = reorder(HostVariety, -chl, na.rm = TRUE), 
+                                         y = chl, fill=HostVariety)) + 
+  geom_boxplot() +
   scale_fill_grey(start = 1, end = 0.4) + labs(tag = "A") + 
   xlab("Soybean Cultivar") + ylab("Total Chlorophyll (ng/sq mm)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) 
 ES13B.ByHosCult
-#stat_summary(fun.data = give.n, geom = "text", position = position_dodge(width = 0.75), size = 3) # + facet_wrap(~ HostVariety)
 ```
 
 # Individual panel B
 
 ```{r}
 ###Plot by variety by treatment w/ outliers
-ES13B.ggplot.ByCultByTreat <- ggplot(ES13B.mod, aes(x = reorder(HostVariety, -chl, na.rm = TRUE), y = chl, fill=Treatment)) + geom_boxplot() + #+ geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES13B.ggplot.ByCultByTreat <- ggplot(ES13B.mod, aes(x = reorder(HostVariety, -chl, 
+                                                                na.rm = TRUE), 
+                                                    y = chl, fill=Treatment)) +
+  geom_boxplot() + #+ geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
     scale_fill_grey(start = 1, end = 0.4) + labs(tag = "B") + 
     xlab("Soybean Cultivar") + ylab("Total Chlorophyll (ng/sq mm)") + 
-    theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-    theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
+    theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+          axis.title.x = element_text(size=10, face = "bold"), 
+          axis.title.y =element_text(size = 10, face = "bold"), 
+          axis.text.x = element_text(angle = 45, hjust = 1)) + 
+    theme(panel.border = element_blank(), 
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black")) 
 ES13B.ggplot.ByCultByTreat
-#stat_summary(fun.data = give.n, geom = "text", position = position_dodge(width = 0.75), size = 3) # + facet_wrap(~ HostVariety)
 ```
 
 ## Panel C
 
 ```{r}
 ###Plot By Host only w/ outliers for grid
-ES14A.ggplot.ByHost <- ggplot(ES14A.mod, aes(x = reorder(Host, -chl, na.rm = TRUE), y = chl, fill=Host)) + geom_boxplot() + #+ geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES14A.ggplot.ByHost <- ggplot(ES14A.mod, aes(x = reorder(Host, -chl, na.rm = TRUE), 
+                                             y = chl, fill=Host)) + 
+  geom_boxplot() + #+ geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
     scale_fill_grey(start = 1, end = 0.4) + labs(tag = "C") + 
     xlab("Plant Species") + ylab("Total Chlorophyll (ng/sq mm)") + 
-    theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-    theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-  #stat_summary(fun.data = give.n, geom = "text", position = position_dodge(width = 0.75), size = 3) # + facet_wrap(~ HostVariety)
+    theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+          axis.title.x = element_text(size=10, face = "bold"), 
+          axis.title.y = element_text(size = 10, face = "bold"), 
+          axis.text.x = element_text(angle = 45, hjust = 1)) + 
+    theme(panel.border = element_blank(), 
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black")) 
 ES14A.ggplot.ByHost 
 ```
 
@@ -498,12 +568,18 @@ ES14A.ggplot.ByHost
 
 ```{r}
 ###Plot by host by treatment w/ outliers
-ES14A.ggplot.ByHostByTreat <- ggplot(ES14A.mod, aes(x = reorder(Host, -chl, na.rm = TRUE), y = chl, fill=Treatment)) + geom_boxplot() + #+ geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
-    scale_fill_grey(start = 1, end = 0.4) + labs(tag = "D") +
+ES14A.ggplot.ByHostByTreat <- ggplot(ES14A.mod, aes(x = reorder(Host, -chl, na.rm = TRUE),
+                                                    y = chl, fill=Treatment)) +
+  geom_boxplot() + #+ geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+  scale_fill_grey(start = 1, end = 0.4) + labs(tag = "D") +
     xlab("Plant Species") + ylab("Total Chlorophyll (ng/sq mm)") + 
-    theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-    theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-  #stat_summary(fun.data = give.n, geom = "text", position = position_dodge(width = 0.75), size = 3) # + facet_wrap(~ HostVariety)
+    theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+          axis.title.x = element_text(size=10, face = "bold"), 
+          axis.title.y = element_text(size = 10, face = "bold"), 
+          axis.text.x = element_text(angle = 45, hjust = 1)) + 
+    theme(panel.border = element_blank(), 
+          panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black")) 
 ES14A.ggplot.ByHostByTreat 
 ```
 
@@ -511,7 +587,10 @@ ES14A.ggplot.ByHostByTreat
 
 ```{r}
 ###Grid for composite figure 3 (08/16/2021). Using ES13B and ES14 only.
-gridExtra::grid.arrange(ES13B.ByHosCult,ES13B.ggplot.ByCultByTreat , ES14A.ggplot.ByHost, ES14A.ggplot.ByHostByTreat, ncol=2) #+ ggtitle("Digital chlorophyll content by treatment")
+gridExtra::grid.arrange(ES13B.ByHosCult,
+                        ES13B.ggplot.ByCultByTreat , 
+                        ES14A.ggplot.ByHost, 
+                        ES14A.ggplot.ByHostByTreat, ncol=2)
 ```
 
 # Supplementary Materials/Figures
@@ -521,46 +600,76 @@ gridExtra::grid.arrange(ES13B.ByHosCult,ES13B.ggplot.ByCultByTreat , ES14A.ggplo
 ```{r}
 
 #ES2 by treatment by dilution, by growth conditions no title
-ES2.mod.ggplot.v2 <- ggplot(ES2.mod, aes(x = reorder(Treatment, -chl, na.rm = TRUE), y = chl, fill = Dilution)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES2.mod.ggplot.v2 <- ggplot(ES2.mod, aes(x = reorder(Treatment, -chl, na.rm = TRUE), 
+                                         y = chl, fill = Dilution)) + 
+  geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
   scale_fill_grey(start = 1, end = 0.4) + labs(tag = "A") +
   xlab("Treatment") + ylab("Total Chlorophyll (ng/sq mm)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-  #facet_wrap(~ Condition)
-ES2.mod.ggplot.v2 #+ stat_compare_means(aes(group = Dilution), label = "p.signif", na.rm = TRUE)
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"),
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) 
+ES2.mod.ggplot.v2
 
 
 #ES5 by treatment by dilution, no title
-ES5.mod.ggplot.v2 <- ggplot(ES5.mod, aes(x = reorder(Treatment, -chl, na.rm = TRUE), y = chl, fill = Dilution)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES5.mod.ggplot.v2 <- ggplot(ES5.mod, aes(x = reorder(Treatment, -chl, na.rm = TRUE), 
+                                         y = chl, fill = Dilution)) + 
+  geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
   scale_fill_grey(start = 1, end = 0.4) + labs(tag = "B") +
   xlab("Treatment") + ylab("Total Chlorophyll (ng/sq mm)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) + 
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"),
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) + 
   facet_wrap(~ Condition)
-ES5.mod.ggplot.v2 #+ stat_compare_means(aes(group = Dilution), label = "p.signif", na.rm = TRUE)
-
+ES5.mod.ggplot.v2
 
 #ES5 by conditions (side by side)
-ES5.mod.ggplot.v3 <- ggplot(ES5.mod, aes(x = reorder(Condition, -chl, na.rm = TRUE), y = chl, fill=Treatment)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES5.mod.ggplot.v3 <- ggplot(ES5.mod, aes(x = reorder(Condition, -chl, na.rm = TRUE), 
+                                         y = chl, fill=Treatment)) + 
+  geom_boxplot() +
   scale_fill_grey(start =1, end = 0.4) + labs(tag = "C") +
   xlab("Growth Condition") + ylab("Total Chlorophyll (ng/sq mm)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-#facet_wrap(~ Condition)
-ES5.mod.ggplot.v3 #+ stat_compare_means(aes(group = Condition), label = "p.signif", na.rm = TRUE)
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) 
+ES5.mod.ggplot.v3 
 
 #ES5 by dilutions (side by side)
-ES5.mod.ggplot.v4 <- ggplot(ES5.mod, aes(x = reorder(Dilution, -chl, na.rm = TRUE), y = chl, fill=Treatment)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+ES5.mod.ggplot.v4 <- ggplot(ES5.mod, aes(x = reorder(Dilution, -chl, na.rm = TRUE), 
+                                         y = chl, fill=Treatment)) + 
+  geom_boxplot() +
   scale_fill_grey(start =1, end = 0.4) + labs(tag = "D") +
   xlab("Dilution Factor") + ylab("Total Chlorophyll (ng/sq mm)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) 
-#facet_wrap(~ Condition)
-ES5.mod.ggplot.v4 #+ stat_compare_means(aes(group = Condition), label = "p.signif", na.rm = TRUE)
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) 
+ES5.mod.ggplot.v4
 
 
 ###Grid for supplementary figure 1 (updated 08/25/2021). Using ES2 and ES5 only.
-gridExtra::grid.arrange(ES2.mod.ggplot.v2, ES5.mod.ggplot.v2, ES5.mod.ggplot.v3,ES5.mod.ggplot.v4, ncol=2) #+ ggtitle("Digital chlorophyll content by treatment")
+gridExtra::grid.arrange(ES2.mod.ggplot.v2, 
+                        ES5.mod.ggplot.v2, 
+                        ES5.mod.ggplot.v3,ES5.mod.ggplot.v4, ncol=2)
 
 ```
 
@@ -573,16 +682,22 @@ This composite figure contained validation chlorophyll content (chemical vs digi
 
 ```{r}
 #Load datasets
-ES10.chem <- read.csv("../raw_data/ES10.chem.chl.csv", header = T) #Chlorophyll content obtained chemically
+ES10.chem <- read.csv("../raw_data/ES10.chem.chl.csv", header = T)
+#Chlorophyll content obtained chemically for a dataset with all biomass and pH measurements
 
 ES10.digital <- read.csv("../raw_data/ES10.digital.chl.csv", header = T)
-BiomassAndpH.metadata <- read.csv("../raw_data/FilteringTreatments.metadata.csv", header = T)
+#Chlorophyll content obtained digitally for a dataset with all biomass and pH measurements
+
+BiomassAndpH.metadata <- read.csv("../raw_data/FilteringTreatments.metadata.csv", 
+                                  header = T)
 ```
 
 ### Summarizing and aggregating datasets
 
 ```{r}
-#Obtaining sums for ES10  because digital measurements=3 per experimental unit, but chemical measurements=1 per experimental unit. 
+#Obtaining sums for ES10  because digital measurements=3 per experimental unit,
+#but chemical measurements=1 per experimental unit. 
+
 ES10.digital.sum <- aggregate(ES10.digital$chl,list(ES10.digital$ExpCode),sum)
 
 names(ES10.digital.sum)[names(ES10.digital.sum) == "x"] <- "dig.chl"
@@ -598,41 +713,63 @@ ES10.chem.dig = merge(ES10.chem, ES10.digital.sum, by.x='ExpCode', by.y='Group.1
 cor(ES10.chem.dig$chl, ES10.chem.dig$dig.chl, method="pearson")
 ```
 
-## Plotting supplementary figure 1 panel A
+## Plotting Supplementary Figure 2 panel A
 
 ```{r}
 ES10.chem.dig.ggplot <- ggscatter(ES10.chem.dig, x = "chl", y = "dig.chl", 
-                                                          add = "reg.line", conf.int = TRUE, 
-                                                          cor.coef = TRUE, cor.method = "pearson",
-                                                          xlab = "Chemical chlorophyll content (ng/sq mm)", ylab = "Digital chlorophyll content (ng/sq mm)") + labs(tag = "A")
+                                                          add = "reg.line", conf.int = TRUE,
+                                                          cor.coef = TRUE, 
+                                                          cor.method = "pearson",
+                                  xlab = "Chemical chlorophyll content (ng/sq mm)", 
+                                  ylab = "Digital chlorophyll content (ng/sq mm)") + 
+                                                          labs(tag = "A")
 ES10.chem.dig.ggplot
 ```
 
-## Plotting Biomass by Treatment by Condition (Supplementary Figure 2, Panel B)
+## Plotting Biomass by Treatment by Condition 
+
+(Supplementary Figure 2, Panel B)
 
 ```{r}
 # Supplementary figure 2 panel B
 ## ES5 by dilutions (side by side)
-BiomassAndpH.metadata.ggplot.B <- ggplot(BiomassAndpH.metadata, aes(x = reorder(Isolate, +Weight_grams), y = Weight_grams, fill=FilterWeight)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+BiomassAndpH.metadata.ggplot.B <- ggplot(BiomassAndpH.metadata, 
+                                         aes(x = reorder(Isolate, +Weight_grams), 
+                                             y = Weight_grams, fill=FilterWeight)) +
+  geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
   scale_fill_grey(start =0.4, end = 1) + labs(tag = "B") +
   xlab("Treatment") + ylab("Whatman No. 1 Filter Weight (grams)") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) +
   facet_wrap(~ Condition)
-BiomassAndpH.metadata.ggplot.B #+ stat_compare_means(aes(group = Condition), label = "p.signif", na.rm = TRUE)
+BiomassAndpH.metadata.ggplot.B
 ```
 
 ## Supplementary figure 2 panel C
 
 ```{r}
 #ES5 by dilutions (side by side)
-BiomassAndpH.metadata.pH.ggplot.C <- ggplot(BiomassAndpH.metadata, aes(x = reorder(Isolate, +pH), y = pH, fill=pHMeasurement)) + geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+BiomassAndpH.metadata.pH.ggplot.C <- ggplot(BiomassAndpH.metadata, 
+                                            aes(x = reorder(Isolate, +pH), 
+                                                y = pH, fill=pHMeasurement)) +
+  geom_boxplot() + 
   scale_fill_grey(start =0.4, end = 1) + labs(tag = "C") +
   xlab("Treatment") + ylab("pH") + 
-  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 45, hjust = 1)) + 
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) +
   facet_wrap(~ Condition)
-BiomassAndpH.metadata.pH.ggplot.C #+ stat_compare_means(aes(group = Condition), label = "p.signif", na.rm = TRUE)
+BiomassAndpH.metadata.pH.ggplot.C
 ```
 
 
@@ -652,7 +789,8 @@ ES8.chem.dig = merge(ES8.chem, ES8.digital.sum, by.x='ExpCode', by.y='Group.1')
 FinalpHvsChl.reg <- ggscatter(ES8.chem.dig, x = "dig.chl", y = "FinalpH", 
                                           add = "reg.line", conf.int = TRUE, 
                                           cor.coef = TRUE, cor.method = "pearson",
-                                          xlab = "Digital chlorophyll content (ng/sq mm)", ylab = "Final pH") + labs(tag = "D")
+                                          xlab = "Digital chlorophyll content (ng/sq mm)",
+                                          ylab = "Final pH") + labs(tag = "D")
 FinalpHvsChl.reg
 ```
 
@@ -685,7 +823,8 @@ anova(ES2.root.noNAs.lm)
 
 #Tukey's HSD for Variable Condition
 
-ES2.root.noNAs.condition.HSD.test <- HSD.test(ES2.root.noNAs.lm, 'ES2.root.noNAs$Condition', group = T)
+ES2.root.noNAs.condition.HSD.test <- HSD.test(ES2.root.noNAs.lm, 
+                                              'ES2.root.noNAs$Condition', group = T)
 ES2.root.noNAs.condition.HSD.test
 
 #Tukey's HSD for Variable Concentration
@@ -712,7 +851,9 @@ ES2.root.tuk = transformTukey(ES2.root.noNAs$Length, plotit=FALSE)
 ES2.root.noNAs.mod = cbind(ES2.root.noNAs, ES2.root.tuk)
 
 #ES2 longest root statistical analysis after normalization
-ES2.root.noNAs.mod.lm <- lm (ES2.root.noNAs.mod$ES2.root.tuk ~ ES2.root.noNAs.mod$Isolate + ES2.root.noNAs.mod$Condition + ES2.root.noNAs.mod$Concentration, na.action=na.exclude)
+ES2.root.noNAs.mod.lm <- lm (ES2.root.noNAs.mod$ES2.root.tuk ~ ES2.root.noNAs.mod$Isolate + 
+                               ES2.root.noNAs.mod$Condition +
+                               ES2.root.noNAs.mod$Concentration, na.action=na.exclude)
 ES2.root.noNAs.mod.lm
 summary(ES2.root.noNAs.mod.lm)
 anova(ES2.root.noNAs.mod.lm)
@@ -743,13 +884,23 @@ ES2.root.noNAs.mod.leafsec.treat.dil.HSD.test
 ```{r}
 #Plate for Supp Figure 3 FINAL (USE THIS ONE, because no differences between Shaking and stat were observed)
 ES2.root.noNAs.mod$Isolate  <- with(ES2.root.noNAs.mod, reorder(Isolate, -Length))
-ES2.root.noNAs.mod.ggplot.plate <- ggplot(ES2.root.noNAs.mod, aes(x = Isolate, y = Length, fill = Isolate)) + geom_boxplot() +
+ES2.root.noNAs.mod.ggplot.plate <- ggplot(ES2.root.noNAs.mod, aes(x = Isolate, 
+                                                                  y = Length, 
+                                                                  fill = Isolate)) + 
+  geom_boxplot() +
   #scale_fill_grey(start = 1, end = 0.4) +
   #scale_fill_manual(values = c("Control"="green", "DMCC2966"="green", "DMCC2126"="gold", "DMCC2165"="gold", "DMCC2127"="gold"))+ 
   #ggtitle("Root Length at 14 Days After Exposure") +
   scale_fill_manual(values = c("#000000", "#FFFFFF", "#DADADA", "#ACACAC","#666666")) +
-  xlab("Treatment") + ylab("Root Length (mm)") + theme(plot.title = element_text(size = 14, hjust = 0.5, face = "bold"), axis.title.x = element_text(size=10, face = "bold"), axis.title.y = element_text(size = 10, face = "bold"), axis.text.x = element_text(angle = 30, hjust = 1)) +
-  theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black")) +
+  xlab("Treatment") + ylab("Root Length (mm)") + 
+  theme(plot.title = element_text(size = 14, hjust = 0.5, face = "bold"), 
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 30, hjust = 1)) +
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) +
   facet_wrap(~ Concentration)
 ES2.root.noNAs.mod.ggplot.plate
 #dev.off()
