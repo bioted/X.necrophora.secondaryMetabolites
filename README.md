@@ -1,4 +1,4 @@
-# X.necrophora.secondaryMetabolites. Esta es una demonstracion.
+# X.necrophora.secondaryMetabolites.
 
 ## Below is information regarding methods pertinent to the data in this repository. These methods are an excerpt from the manuscript submitted to Plant Disease.
 
