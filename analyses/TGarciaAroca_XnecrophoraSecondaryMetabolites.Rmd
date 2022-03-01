@@ -1,10 +1,10 @@
 ---
 title: Statistical analyses and plotting for experiments related to the effects of secondary metabolites produced by *Xylaria necrophora* on soybean leaves
 author: "Teddy Garcia-Aroca"
-date: "October 29, 2021"
+date: "Last update: March 1st, 2022"
 output:
   pdf_document: default
-  html_document: default
+  html_document: rmdformats::downcute
 ---
 
 # Install packages needed.
@@ -13,7 +13,7 @@ output:
 
 ```{r}
 packages <- c("agricolae", "dplyr", "plyr", "ggplot2", "readr", "ggpubr", "car",
-              "rcompanion", "tidyverse", "ggsignif", "reshape")
+              "rcompanion", "tidyverse", "ggsignif", "reshape", "rmdformats")
 ```
 
 ## Install packages not yet installed
@@ -64,7 +64,7 @@ setwd("C:/Users/YOURUSERNAME/Documents/X.necrophora.secondaryMetabolites/output"
 ## For this example, we set the working directory to the following:
 
 ```{r}
-setwd("/Users/tedggarcia/Documents/X.necrophora.secondaryMetabolites/output/")
+setwd("/Users/tedggarcia/Documents/Xylaria.Mycotoxins.2020/Manuscript/Submission/GitHubRepository/X.necrophora.secondaryMetabolites/output/")
 ```
 
 # Loading digital chlorophyll content datasets (only one repetition of each experiment for illustration purposes). All datasets can be found in the folder named "raw_data"

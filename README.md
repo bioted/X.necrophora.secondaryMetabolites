@@ -1,6 +1,6 @@
 # X.necrophora.secondaryMetabolites.
 
-## Below is information regarding methods pertinent to the data in this repository. These methods are an excerpt from the manuscript submitted to Plant Disease.
+## Below is information regarding methods pertinent to the data in this repository. These methods are an excerpt from the manuscript submitted to Plant Health Progress (March 2022).
 
 Title: Secondary metabolites produced by <i>Xylaria necrophora</i> are responsible for symptoms associated with taproot decline of soybean.
 
