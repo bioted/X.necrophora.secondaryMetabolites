@@ -3,8 +3,8 @@ title: Statistical analyses and plotting for experiments related to the effects 
 author: "Teddy Garcia-Aroca"
 date: "Last update: May 14th, 2022"
 output:
-  pdf_document: default
   html_document: rmdformats::downcute
+  pdf_document: default
 ---
 
 # Install packages needed.
@@ -659,6 +659,30 @@ ES5.mod.ggplot.v2 <- ggplot(ES5.mod, aes(x = reorder(Treatment, -chl, na.rm = TR
         axis.line = element_line(colour = "black")) + 
   facet_wrap(~ Condition)
 ES5.mod.ggplot.v2
+
+#Reorder for visualization purposes
+ES5.mod.new <- ES5.mod
+ES5.mod.new$Condition <- factor(ES5.mod.new$Condition,    # Reordering group factor levels
+                         levels = c("Stationary", "Shaking"))
+
+#Plot reordered factors
+ES5.mod.ggplot.v3 <- ggplot(ES5.mod.new, aes(x = reorder(Treatment, -chl, na.rm = TRUE), 
+                                         y = chl, fill = Dilution)) + 
+  geom_boxplot() + #geom_point(aes(colour = factor(LeafSampleNumber)))# + geom_jitter()
+  scale_fill_grey(start = 1, end = 0.4) + labs(tag = "C") +
+  xlab("Treatment") + ylab("Total Chlorophyll (ng/sq mm)") + 
+  theme(plot.title = element_text(size = 12, hjust = 0.1, face = "bold"),
+        axis.title.x = element_text(size=10, face = "bold"), 
+        axis.title.y = element_text(size = 10, face = "bold"), 
+        axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(panel.border = element_blank(), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.line = element_line(colour = "black")) + 
+   facet_wrap(.~ Condition)
+ES5.mod.ggplot.v3
+
+
 ```
 
 # Individual panel D
@@ -687,7 +711,7 @@ ES2.mod.ggplot.v2
 ```{r}
 
 ###Grid for composite figure 1 (updated 05/11/2022). Using ES2 and ES5 only.
-gridExtra::grid.arrange(ES5.mod.ggplot, ES2.mod.v2.ggplot, ES5.mod.ggplot.v2, ES2.mod.ggplot.v2, ncol=2)
+gridExtra::grid.arrange(ES5.mod.ggplot, ES2.mod.v2.ggplot, ES5.mod.ggplot.v3, ES2.mod.ggplot.v2, ncol=2)
 ```
 
 
