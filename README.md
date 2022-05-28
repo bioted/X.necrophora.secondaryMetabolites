@@ -19,7 +19,9 @@ Authors: Teddy Garcia-Aroca<sup>a,d,+</sup>, Trey Price<sup>b</sup>, Jose Solorz
 
 
 Teddy Garcia-Aroca: http://orcid.org/0000-0002-7567-4363
+
 Paul “Trey” Price: http://orcid.org/0000-0002-1004-3616
+
 Vinson P. Doyle: http://orcid.org/0000-0002-2350-782X
 
 
