@@ -79,7 +79,7 @@ When downloading this repository, open the "analyses" folder and load the R mark
 
 [^1]:Liang Y, Urano D, Liao KL, Hedrick TL, Gao Y, Jones AM. 2017. A nondestructive method to estimate the chlorophyll content of Arabidopsis seedlings. Plant Methods. 13:1–10. https://doi.org/10.1186/s13007-017-0174-6
 
-[^2] Schneider CA, Rasband WS, Eliceiri KW. 2012. NIH Image to ImageJ: 25 years of image analysis. Nature Methods. 9:671–675. https://doi.org/10.1007/978-1-84882-087-6_9
+[^2]:Schneider CA, Rasband WS, Eliceiri KW. 2012. NIH Image to ImageJ: 25 years of image analysis. Nature Methods. 9:671–675. https://doi.org/10.1007/978-1-84882-087-6_9
 
 [^3]:Wickham H, François R, Henry L, Müller K. 2018. dplyr: A grammar of data manipulation. https://cran.r-project.org/package=dplyr
 
